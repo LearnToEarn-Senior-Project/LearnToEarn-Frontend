@@ -4,7 +4,7 @@ const routes = [
   {
     path: CONSTANT_ROUTES.HOME,
     name: "home",
-    component: () => import("../views/HomeView.vue"),
+    component: () => import("../views/BeforeLogin.vue"),
   },
   {
     path: CONSTANT_ROUTES.ABOUT,

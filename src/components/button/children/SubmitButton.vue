@@ -1,6 +1,7 @@
 <template>
   <BaseButton
     :text="text"
+    :popup="popup"
     :click="confirmation"
     class="text-shade-white bg-primary-400 hover:bg-primary-700 active:bg-primary-900"
   />
@@ -14,17 +15,23 @@ export default {
       type: String,
       default: "Save",
     },
+    popup: {
+      type: Boolean,
+      default: true,
+    },
   },
   methods: {
     confirmation() {
-      this.$swal({
-        icon: "question",
-        iconColor: "#1425ff",
-        title: "Do you want to...",
-        text: "text text",
-        showCancelButton: true,
-        confirmButtonText: "Purchase",
-      });
+      if (this.popup == true) {
+        this.$swal({
+          icon: "question",
+          iconColor: "#1425ff",
+          title: "Do you want to...",
+          text: "text text",
+          showCancelButton: true,
+          confirmButtonText: "Purchase",
+        });
+      }
     },
   },
 };

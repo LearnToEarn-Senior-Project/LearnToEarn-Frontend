@@ -1,17 +1,17 @@
 <template>
   <div class="flex items-center justify-between">
-    <div class="flex items-center gap-x-16">
+    <div class="flex gap-x-16">
       <router-link
         :to="{ name: 'home' }"
-        class="text-secondary-500 font-semibold text-2xl"
+        class="text-secondary-500 font-semibold text-2xl hidden md:block"
         >LearnToEarn
       </router-link>
-      <div class="flex gap-x-10">
+      <div class="flex items-center gap-x-10">
         <router-link
           v-for="item in NavBarItems"
           :key="item.id"
           :to="{ name: item.pageName }"
-          class="text-shade-white text-sm font-semibold hidden md:block"
+          class="text-shade-white text-sm font-semibold hidden md:block rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 focus:bg-secondary-100 focus:text-primary-900"
         >
           {{ item.title }}
         </router-link>
@@ -38,7 +38,6 @@
               <img
                 class="h-[30px] w-[30px] rounded-full"
                 src="@/assets/user/anonymous.png"
-                alt="profile"
               />
             </div>
             <div class="pr-2.5 text-primary-900 font-semibold text-sm">
@@ -76,7 +75,7 @@
   </div>
 </template>
 <script>
-import NavBarItem from "@/components/navbar/NavBarItem";
+import NavBarItem from "@/components/navbar/children/items/NavBarItemDesktop";
 import DropdownIcon from "@/assets/icons/chevron-down.svg?inline";
 import Coin from "@/assets/icons/coin/coin_md.svg?inline";
 export default {

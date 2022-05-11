@@ -1,5 +1,8 @@
 <template>
-  <button class="rounded-lg font-medium px-4 py-2 text-sm" @click="click">
+  <button
+    class="rounded-lg font-medium md:px-4 md:py-2 md:text-sm xs:px-2 xs:py-1 xs:text-xs"
+    @click="click"
+  >
     {{ text }}
   </button>
 </template>
