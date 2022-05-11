@@ -1,19 +1,14 @@
 <template>
-  <div class="home">
-    <div class="text-3xl">123123</div>
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <SubmitButton />
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import SubmitButton from "@/components/button/children/SubmitButton";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
+    SubmitButton,
   },
 };
 </script>

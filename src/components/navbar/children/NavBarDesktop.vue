@@ -1,0 +1,123 @@
+<template>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-x-16">
+      <router-link
+        :to="{ name: 'home' }"
+        class="text-secondary-500 font-semibold text-2xl"
+        >LearnToEarn
+      </router-link>
+      <div class="flex gap-x-10">
+        <router-link
+          v-for="item in NavBarItems"
+          :key="item.id"
+          :to="{ name: item.pageName }"
+          class="text-shade-white text-sm font-semibold hidden md:block"
+        >
+          {{ item.title }}
+        </router-link>
+      </div>
+    </div>
+    <div class="hidden md:block">
+      <div class="flex items-center gap-x-6">
+        <div
+          class="flex items-center gap-x-2.5 text-shade-white font-semibold text-sm"
+        >
+          <Coin />
+          <!-- Var -->
+          10
+        </div>
+        <div class="ml-4 md:block flex items-center relative">
+          <button
+            class="max-w-xs text-sm flex items-center bg-secondary-500 rounded-3xl px-1 py-2.5 h-9 text-shade-white focus:outline-none focus:shadow-solid"
+            id="user-menu"
+            aria-label="User menu"
+            aria-haspopup="true"
+          >
+            <div class="pr-2.5">
+              <!-- Var -->
+              <img
+                class="h-[30px] w-[30px] rounded-full"
+                src="@/assets/user/anonymous.png"
+                alt="profile"
+              />
+            </div>
+            <div class="pr-2.5 text-primary-900 font-semibold text-sm">
+              <!-- Var -->
+              Decha Laowraddecha
+            </div>
+            <DropdownIcon />
+          </button>
+          <div
+            id="user-menu-dropdown"
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md"
+          >
+            <div
+              class="py-1 rounded-md text-center bg-shade-white shadow-xs border-2 border-neutral-400"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="user-menu"
+            >
+              <router-link
+                :to="{ name: 'about' }"
+                class="w-full justify-center text-sm font-semibold text-shade-black"
+              >
+                <div class="hover:bg-neutral-100 py-2">Account Setting</div>
+              </router-link>
+              <button
+                class="w-full justify-center py-2 text-sm font-semibold text-shade-black hover:bg-neutral-100"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import NavBarItem from "@/components/navbar/NavBarItem";
+import DropdownIcon from "@/assets/icons/chevron-down.svg?inline";
+import Coin from "@/assets/icons/coin/coin_md.svg?inline";
+export default {
+  components: {
+    DropdownIcon,
+    Coin,
+  },
+  data() {
+    return {
+      NavBarItems: NavBarItem,
+    };
+  },
+};
+</script>
+
+<style scoped>
+#user-menu ~ #user-menu-dropdown {
+  --transform-translate-x: 0;
+  --transform-translate-y: 0;
+  --transform-rotate: 0;
+  --transform-skew-x: 0;
+  --transform-skew-y: 0;
+  --transform-scale-x: 1;
+  --transform-scale-y: 1;
+  transform: translateX(var(--transform-translate-x))
+    translateY(var(--transform-translate-y)) rotate(var(--transform-rotate))
+    skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y))
+    scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 75ms;
+  opacity: 0;
+  --transform-scale-x: 0;
+  --transform-scale-y: 0;
+}
+
+#user-menu ~ #user-menu-dropdown:focus-within,
+#user-menu:focus ~ #user-menu-dropdown {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 100ms;
+  opacity: 1;
+  --transform-scale-x: 1;
+  --transform-scale-y: 1;
+}
+</style>
