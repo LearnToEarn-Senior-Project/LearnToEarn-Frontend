@@ -4,7 +4,7 @@ const CONSTANT_ROUTES = {
   ABOUT: "/about",
 
   /*========== STUDENT AND TEACHER ==========*/
-  ACCOUNT_SETTING: "/:id/account_setting",
+  ACCOUNT_SETTING: "/account_setting",
   CLASSROOM_LIST: "/classrooms",
   CLASSROOM_DETAIL: "/classroom/:id/",
   CLASSROOM_RANKING: "/classroom/:id/ranking",

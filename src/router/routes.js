@@ -13,6 +13,11 @@ const routes = [
   },
   /*========== STUDENT AND TEACHER ==========*/
   {
+    path: CONSTANT_ROUTES.ACCOUNT_SETTING,
+    name: "accountSetting",
+    component: () => import("../views/AccountSetting.vue"),
+  },
+  {
     path: CONSTANT_ROUTES.CLASSROOM_LIST,
     name: "classroomList",
     component: () => import("../views/classroom/ClassroomList.vue"),

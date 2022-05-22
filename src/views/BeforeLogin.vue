@@ -5,7 +5,7 @@
     <div
       class="md:text-5xl sm:text-2xl font-semibold text-shade-white row-start-3"
     >
-      Welcome To <span class="text-secondary-300 font-bold">LearnToEarn</span>
+      Welcome To <span class="text-secondary-500 font-bold">LearnToEarn</span>
     </div>
     <BaseButton
       :click="goToCMULogin"

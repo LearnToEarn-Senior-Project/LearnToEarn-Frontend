@@ -23,7 +23,7 @@
       />
     </div>
     <div
-      class="text-secondary-300 font-bold text-md flex items-center justify-center border-shade-white"
+      class="text-secondary-500 font-bold text-md flex items-center justify-center border-shade-white"
     >
       <!-- Var -->
       Decha Laowraddecha

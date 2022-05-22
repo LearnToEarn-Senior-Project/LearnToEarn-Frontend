@@ -57,7 +57,7 @@
               aria-labelledby="user-menu"
             >
               <router-link
-                :to="{ name: 'about' }"
+                :to="{ name: 'accountSetting' }"
                 class="w-full justify-center text-sm font-semibold text-shade-black"
               >
                 <div class="hover:bg-neutral-100 py-2">Account Setting</div>

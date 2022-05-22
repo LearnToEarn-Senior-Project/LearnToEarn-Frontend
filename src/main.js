@@ -1,7 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import router from "./router";
 import store from "./store";
+import router from "./router";
+import GAuth from "vue-google-oauth2";
 import VueSweetalert2 from "vue-sweetalert2";
 import "./index.css";
 import "@fontsource/prompt";
@@ -16,8 +17,17 @@ const options = {
     text: "text-sm",
   },
 };
+const gauthOption = {
+  clientId:
+    "726873603726-tq3t7s31jodv5qcu335dpn8beln6oise.apps.googleusercontent.com",
+  scope: "profile email",
+  prompt: "select_account",
+  fetch_basic_profile: true,
+  plugin_name: "chat",
+};
 createApp(App)
   .use(store)
-  .use(VueSweetalert2, options)
   .use(router)
+  .use(GAuth, gauthOption)
+  .use(VueSweetalert2, options)
   .mount("#app");

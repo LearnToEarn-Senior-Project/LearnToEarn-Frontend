@@ -9,7 +9,7 @@ const navbarItems = [
   },
   {
     title: "Account Setting",
-    pageName: "about",
+    pageName: "accountSetting",
   },
 ];
 
