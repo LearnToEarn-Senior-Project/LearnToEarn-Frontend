@@ -1,12 +1,35 @@
 <template>
   <div class="justify-center items-center grid grid-rows-2 mt-10">
-    <notBind v-if="isBind == false" />
-    <alreadyBind v-if="isBind == true" />
-    <h1>Is Authorized: {{ isBind }}</h1>
+    <div class="row-start-1 text-center" v-if="user == null">
+      <span class="font-semibold text-[40px]">Account Setting</span>
+      <img
+        class="h-[127px] w-[377px] mt-2"
+        src="@/assets/user/google_logo.png"
+      />
+      <div
+        @click="bindGoogleAccount"
+        class="text-[20px] text-primary-500 font-semibold hover:cursor-pointer"
+      >
+        Click here to connect Google Account
+      </div>
+    </div>
+
+    <div class="row-start-1 text-center" v-if="user != null">
+      <div class="flex justify-center">
+        <img
+          class="h-[150px] w-[150px] mt-2 rounded-full border-4 border-primary-900"
+          :src="user.image_url"
+        />
+      </div>
+      <div class="text-[28px] text-shade-black font-semibold">
+        Hello, {{ user.firstname }} {{ user.lastname }}
+      </div>
+      <div class="text-[20px] text-shade-black">{{ user.email }}</div>
+    </div>
   </div>
   <footer
-    v-if="isBind == true"
-    class="min-w-full text-error-600 text-[20px] font-semibold hover:cursor-pointer text-right"
+    v-if="user != null"
+    class="min-w-full pt-8 text-error-600 text-[20px] font-semibold hover:cursor-pointer text-right"
   >
     <span class="mr-6" @click="unbindGoogleAccount">
       Disconnect this account</span
@@ -14,23 +37,42 @@
   </footer>
 </template>
 <script>
-import notBind from "@/components/accountSetting/notBind.vue";
-import alreadyBind from "@/components/accountSetting/alreadyBind.vue";
+import AuthServices from "@/services/AuthServices.js";
 export default {
-  components: {
-    notBind,
-    alreadyBind,
-  },
   data() {
     return {
       isBind: this.$gAuth.isAuthorized,
-      googleData: this.$gAuth.GoogleAuth,
+      user: null,
     };
   },
+  created() {
+    AuthServices.getGoogleData().then((response) => {
+      this.user = response.data;
+    });
+  },
   methods: {
+    async bindGoogleAccount() {
+      const googleUser = await this.$gAuth.signIn();
+      if (!googleUser) {
+        return null;
+      }
+      AuthServices.bindGoogleAccount(
+        googleUser["xc"]["access_token"],
+        googleUser.getBasicProfile().getGivenName(),
+        googleUser.getBasicProfile().getFamilyName(),
+        googleUser.getBasicProfile().getEmail(),
+        googleUser.getBasicProfile().getImageUrl()
+      );
+      setTimeout(() => {
+        this.$router.go();
+      }, 1000);
+    },
     async unbindGoogleAccount() {
       await this.$gAuth.signOut();
-      this.$router.go();
+      AuthServices.unbindGoogleAccount();
+      setTimeout(() => {
+        this.$router.go();
+      }, 500);
     },
   },
 };

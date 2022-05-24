@@ -34,15 +34,13 @@
             aria-haspopup="true"
           >
             <div class="pr-2.5">
-              <!-- Var -->
               <img
                 class="h-[30px] w-[30px] rounded-full"
                 src="@/assets/user/anonymous.png"
               />
             </div>
             <div class="pr-2.5 text-primary-900 font-semibold text-sm">
-              <!-- Var -->
-              Decha Laowraddecha
+              {{ user.firstname }} {{ user.lastname }}
             </div>
             <DropdownIcon />
           </button>
@@ -64,6 +62,7 @@
               </router-link>
               <button
                 class="w-full justify-center py-2 text-sm font-semibold text-shade-black hover:bg-neutral-100"
+                @click="logout"
               >
                 Logout
               </button>
@@ -78,6 +77,7 @@
 import NavBarItem from "@/components/navbar/children/items/NavBarItemDesktop";
 import DropdownIcon from "@/assets/icons/chevron-down.svg?inline";
 import Coin from "@/assets/icons/coin/coin_md.svg?inline";
+import AuthServices from "@/services/AuthServices.js";
 export default {
   components: {
     DropdownIcon,
@@ -86,7 +86,16 @@ export default {
   data() {
     return {
       NavBarItems: NavBarItem,
+      user: {
+        firstname: this.$store.getters.getCurrentUser.firstname,
+        lastname: this.$store.getters.getCurrentUser.lastname,
+      },
     };
+  },
+  methods: {
+    logout() {
+      AuthServices.logout();
+    },
   },
 };
 </script>

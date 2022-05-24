@@ -1,5 +1,5 @@
 <template>
-  <NavBar class="select-none" />
+  <NavBar class="select-none" v-if="this.$store.getters.getCurrentUser" />
   <router-view class="select-none" />
 </template>
 <script>

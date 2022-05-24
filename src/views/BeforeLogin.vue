@@ -7,6 +7,7 @@
     >
       Welcome To <span class="text-secondary-500 font-bold">LearnToEarn</span>
     </div>
+
     <BaseButton
       :click="goToCMULogin"
       :text="'Sign in with CMU Account'"
@@ -17,7 +18,7 @@
 
 <script>
 import BaseButton from "@/components/button/BaseButton";
-
+import AuthServices from "@/services/AuthServices.js";
 export default {
   name: "HomeView",
   components: {
@@ -25,7 +26,8 @@ export default {
   },
   methods: {
     goToCMULogin() {
-      this.$router.push({ name: "about" });
+      window.location.href =
+        "https://oauth.cmu.ac.th/v1/Authorize.aspx?response_type=code&client_id=DfQ7tTs1Qua9Jktfz5UupXN3uvZHsD1HUtYq617r&redirect_uri=http:/localhost:3000/redirect&scope=cmuitaccount.basicinfo&state=xyz";
     },
   },
 };
