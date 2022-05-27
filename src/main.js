@@ -4,6 +4,7 @@ import store from "./store";
 import router from "./router";
 import GAuth from "vue-google-oauth2";
 import VueSweetalert2 from "vue-sweetalert2";
+
 import "./index.css";
 import "@fontsource/prompt";
 import "@/services/axios/AxiosInterceptorSetup.js";

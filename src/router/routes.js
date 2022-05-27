@@ -9,7 +9,7 @@ const routes = [
     component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: () => {
       if (localStorage.getItem("user") != null) {
-        location.replace("http://localhost:3000/about");
+        location.replace("http://localhost:3000/test_component");
       }
     },
   },
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: CONSTANT_ROUTES.ABOUT,
-    name: "about",
+    name: "testComponents",
     component: () => import("../views/AboutView.vue"),
     meta: {
       requiresAuth: true,

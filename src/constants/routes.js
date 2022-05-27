@@ -1,7 +1,7 @@
 const CONSTANT_ROUTES = {
   /*================== ALL ==================*/
   HOME: "/",
-  ABOUT: "/about",
+  ABOUT: "/test_component",
   CMU_OAUTH_LOGIN: "/redirect",
 
   /*========== STUDENT AND TEACHER ==========*/
