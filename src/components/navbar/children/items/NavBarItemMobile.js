@@ -5,7 +5,7 @@ const navbarItems = [
   },
   {
     title: "Token History",
-    pageName: "about",
+    pageName: "testComponents",
   },
   {
     title: "Account Setting",

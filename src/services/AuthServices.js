@@ -26,8 +26,8 @@ export default {
     localStorage.setItem("token", responseGetToken.data.access_token);
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
     setTimeout(() => {
-      location.replace("http://localhost:3000/about");
-    }, 500);
+      location.replace("http://localhost:3000/test_component");
+    }, 100);
   },
   logout() {
     localStorage.removeItem("token");

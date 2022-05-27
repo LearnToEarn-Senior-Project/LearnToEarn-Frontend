@@ -2,9 +2,7 @@
   <div
     class="bg-cover min-h-screen grid grid-rows-6 py-auto grid-flow-col items-center justify-center bg-primary-900 px-8"
   >
-    <div
-      class="md:text-5xl sm:text-2xl font-semibold text-shade-white row-start-3"
-    >
+    <div class="md:text-5xl sm:text-2xl font-bold text-shade-white row-start-3">
       Welcome To <span class="text-secondary-500 font-bold">LearnToEarn</span>
     </div>
 
