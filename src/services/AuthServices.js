@@ -34,14 +34,10 @@ export default {
     localStorage.removeItem("user");
     location.replace("http://localhost:3000/");
   },
-  bindGoogleAccount(access_token, firstname, lastname, email, image_url) {
+  bindGoogleAccount(auth_code) {
     return apiClient.post("/google_login", {
       id: JSON.parse(localStorage.getItem("user"))._id,
-      access_token: access_token,
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      image_url: image_url,
+      auth_code: auth_code,
     });
   },
   unbindGoogleAccount() {

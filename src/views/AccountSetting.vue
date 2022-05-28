@@ -53,18 +53,13 @@ export default {
   },
   methods: {
     async bindGoogleAccount() {
-      const googleUser = await this.$gAuth.signIn();
+      const googleUser = await this.$gAuth.getAuthCode();
       if (!googleUser) {
         return null;
       }
-      AuthServices.bindGoogleAccount(
-        googleUser["xc"]["access_token"],
-        googleUser.getBasicProfile().getGivenName(),
-        googleUser.getBasicProfile().getFamilyName(),
-        googleUser.getBasicProfile().getEmail(),
-        googleUser.getBasicProfile().getImageUrl()
-      );
-      this.$router.go();
+      AuthServices.bindGoogleAccount(googleUser).then(() => {
+        this.$router.go();
+      });
     },
     unbindGoogleAccount() {
       showAlert(

@@ -21,9 +21,7 @@ const options = {
 const gauthOption = {
   clientId:
     "726873603726-tq3t7s31jodv5qcu335dpn8beln6oise.apps.googleusercontent.com",
-  scope: "profile email",
-  prompt: "select_account",
-  fetch_basic_profile: true,
+  prompt: "consent",
   plugin_name: "chat",
 };
 createApp(App)
