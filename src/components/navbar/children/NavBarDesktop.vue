@@ -84,7 +84,7 @@ export default {
       user: null,
     };
   },
-  created() {
+  async created() {
     this.user = {
       firstname: this.$store.getters.getCurrentUser.firstname,
       lastname: this.$store.getters.getCurrentUser.lastname,

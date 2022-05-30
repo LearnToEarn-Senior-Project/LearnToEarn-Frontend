@@ -23,7 +23,13 @@ export default {
         "/getUser/" + responseGetData.data.student_id
       );
     }
-    localStorage.setItem("token", responseGetToken.data.access_token);
+    localStorage.setItem(
+      "token",
+      JSON.stringify({
+        access_token: responseGetToken.data.access_token,
+        refresh_token: responseGetToken.data.refresh_token,
+      })
+    );
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
     setTimeout(() => {
       location.replace("http://localhost:3000/test_component");
