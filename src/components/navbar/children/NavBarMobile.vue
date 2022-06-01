@@ -50,7 +50,7 @@
 import NavBarItem from "@/components/navbar/children/items/NavBarItemMobile";
 import CoinLG from "@/assets/icons/coin/coin_md.svg?inline";
 import MenuIcon from "@/assets/icons/menu.svg?inline";
-import AuthServices from "@/services/AuthServices.js";
+import AuthServices from "@/services/authentication/AuthServices.js";
 export default {
   components: {
     MenuIcon,

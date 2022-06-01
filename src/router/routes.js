@@ -1,10 +1,9 @@
-import CONSTANT_ROUTES from "@/constants/routes";
-import AuthServices from "@/services/AuthServices.js";
+import AuthServices from "@/services/authentication/AuthServices.js";
 
 const routes = [
   /*================== ALL ==================*/
   {
-    path: CONSTANT_ROUTES.HOME,
+    path: "/",
     name: "home",
     component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: () => {
@@ -14,7 +13,7 @@ const routes = [
     },
   },
   {
-    path: CONSTANT_ROUTES.CMU_OAUTH_LOGIN,
+    path: "/redirect",
     name: "OAuthRedirect",
     component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: (route) => {
@@ -22,7 +21,7 @@ const routes = [
     },
   },
   {
-    path: CONSTANT_ROUTES.ABOUT,
+    path: "/test_component",
     name: "testComponents",
     component: () => import("../views/AboutView.vue"),
     meta: {
@@ -31,7 +30,7 @@ const routes = [
   },
   /*========== STUDENT AND TEACHER ==========*/
   {
-    path: CONSTANT_ROUTES.ACCOUNT_SETTING,
+    path: "/account_setting",
     name: "accountSetting",
     component: () => import("../views/AccountSetting.vue"),
     meta: {
@@ -39,7 +38,7 @@ const routes = [
     },
   },
   {
-    path: CONSTANT_ROUTES.CLASSROOM_LIST,
+    path: "/classrooms",
     name: "classroomList",
     component: () => import("../views/classroom/ClassroomList.vue"),
     meta: {
@@ -48,9 +47,17 @@ const routes = [
   },
   /*=========== STUDENT AND ADMIN ===========*/
   {
-    path: CONSTANT_ROUTES.REWARD_LIST,
+    path: "/rewards",
     name: "rewardList",
     component: () => import("../views/reward/RewardList.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/reward/:id",
+    name: "rewardDetails",
+    component: () => import("../views/reward/RewardDetails.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -60,5 +67,13 @@ const routes = [
   /*================ TEACHER ================*/
 
   /*================= ADMIN =================*/
+  {
+    path: "/addRewards",
+    name: "addReward",
+    component: () => import("../views/reward/AddReward.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ];
 export default routes;

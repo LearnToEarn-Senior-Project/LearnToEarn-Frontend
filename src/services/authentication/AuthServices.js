@@ -11,7 +11,7 @@ export default {
       email: responseGetData.data.cmuitaccount,
       firstname: responseGetData.data.firstname_EN,
       lastname: responseGetData.data.lastname_EN,
-      role: responseGetData.data.itaccounttype_id,
+      role: "student",
     };
     let responseGetUserByID = await apiClient.get(
       "/getUser/" + responseGetData.data.student_id
@@ -23,13 +23,13 @@ export default {
         "/getUser/" + responseGetData.data.student_id
       );
     }
-    localStorage.setItem(
+    /* localStorage.setItem(
       "token",
       JSON.stringify({
         access_token: responseGetToken.data.access_token,
         refresh_token: responseGetToken.data.refresh_token,
       })
-    );
+    ); */
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
     setTimeout(() => {
       location.replace("http://localhost:3000/test_component");
@@ -39,21 +39,5 @@ export default {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     location.replace("http://localhost:3000/");
-  },
-  bindGoogleAccount(auth_code) {
-    return apiClient.post("/google_login", {
-      id: JSON.parse(localStorage.getItem("user"))._id,
-      auth_code: auth_code,
-    });
-  },
-  unbindGoogleAccount() {
-    return apiClient.post("/google_logout", {
-      id: JSON.parse(localStorage.getItem("user"))._id,
-    });
-  },
-  getGoogleData() {
-    return apiClient.get(
-      "/googleGetData/" + JSON.parse(localStorage.getItem("user"))._id
-    );
   },
 };
