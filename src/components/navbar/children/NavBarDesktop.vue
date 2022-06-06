@@ -72,7 +72,6 @@
 import NavBarItem from "@/components/navbar/children/items/NavBarItemDesktop";
 import DropdownIcon from "@/assets/icons/chevron-down.svg?inline";
 import Coin from "@/assets/icons/coin/coin_md.svg?inline";
-import AuthServices from "@/services/authentication/AuthServices.js";
 export default {
   components: {
     DropdownIcon,
@@ -84,16 +83,17 @@ export default {
       user: null,
     };
   },
+  props: {
+    logout: {
+      type: Function,
+      required: true,
+    },
+  },
   async created() {
     this.user = {
       firstname: this.$store.getters.getCurrentUser.firstname,
       lastname: this.$store.getters.getCurrentUser.lastname,
     };
-  },
-  methods: {
-    logout() {
-      AuthServices.logout();
-    },
   },
 };
 </script>

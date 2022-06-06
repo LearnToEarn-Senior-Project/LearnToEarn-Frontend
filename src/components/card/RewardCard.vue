@@ -17,7 +17,9 @@
           </div>
         </div>
       </div>
-      <div class="text-shade-white text-center font-bold text-[14px] pt-1">
+      <div
+        class="text-shade-white text-center font-bold text-[14px] pt-1 truncate px-2"
+      >
         {{ reward.name }}
       </div>
     </router-link>

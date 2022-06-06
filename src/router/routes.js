@@ -15,9 +15,16 @@ const routes = [
   {
     path: "/redirect",
     name: "OAuthRedirect",
-    component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: (route) => {
       return AuthServices.login(route.query.code);
+    },
+  },
+  {
+    path: "/auth",
+    name: "MSOAuth",
+    component: () => import("../views/MsLogin.vue"),
+    meta: {
+      requiresAuth: true,
     },
   },
   {
@@ -55,13 +62,14 @@ const routes = [
     },
   },
   {
-    path: "/reward/:id",
+    path: "/reward/:id/",
     name: "rewardDetails",
     component: () => import("../views/reward/RewardDetails.vue"),
     meta: {
       requiresAuth: true,
     },
   },
+
   /*================ STUDENT ================*/
 
   /*================ TEACHER ================*/
@@ -71,6 +79,14 @@ const routes = [
     path: "/addRewards",
     name: "addReward",
     component: () => import("../views/reward/AddReward.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/reward/:id/edit",
+    name: "rewardEdit",
+    component: () => import("../views/reward/children/RewardEdit.vue"),
     meta: {
       requiresAuth: true,
     },

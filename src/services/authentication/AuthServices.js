@@ -1,4 +1,5 @@
 import apiClient from "@/services/axios/AxiosClient.js";
+import msal from "vue-msal";
 
 export default {
   async login(code) {
@@ -6,22 +7,29 @@ export default {
     const responseGetData = await apiClient.get(
       "/credentials/" + responseGetToken.data.access_token
     );
-    const userObject = {
-      id: responseGetData.data.student_id,
-      email: responseGetData.data.cmuitaccount,
-      firstname: responseGetData.data.firstname_EN,
-      lastname: responseGetData.data.lastname_EN,
-      role: "student",
-    };
-    let responseGetUserByID = await apiClient.get(
-      "/getUser/" + responseGetData.data.student_id
-    );
+    let userObject = null;
+    try {
+      userObject = {
+        id: responseGetData.data.student_id,
+        email: responseGetData.data.cmuitaccount,
+        firstname: responseGetData.data.firstname_EN,
+        lastname: responseGetData.data.lastname_EN,
+        role: "student",
+      };
+    } catch (error) {
+      userObject = {
+        id: responseGetData.data.OrganizationID1,
+        email: responseGetData.data.Email,
+        firstname: responseGetData.data.NameEng,
+        lastname: responseGetData.data.MiddleNameEng,
+        role: "teacher",
+      };
+    }
+    let responseGetUserByID = await apiClient.get("/getUser/" + userObject.id);
     if (responseGetUserByID.data.length == 0) {
       await apiClient.post("/addUser", userObject);
       console.log("Add user success");
-      responseGetUserByID = await apiClient.get(
-        "/getUser/" + responseGetData.data.student_id
-      );
+      responseGetUserByID = await apiClient.get("/getUser/" + userObject.id);
     }
     /* localStorage.setItem(
       "token",
@@ -32,9 +40,10 @@ export default {
     ); */
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
     setTimeout(() => {
-      location.replace("http://localhost:3000/test_component");
+      location.replace("http://localhost:3000/auth");
     }, 100);
   },
+  msLogin(id_token) {},
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");

@@ -50,7 +50,6 @@
 import NavBarItem from "@/components/navbar/children/items/NavBarItemMobile";
 import CoinLG from "@/assets/icons/coin/coin_md.svg?inline";
 import MenuIcon from "@/assets/icons/menu.svg?inline";
-import AuthServices from "@/services/authentication/AuthServices.js";
 export default {
   components: {
     MenuIcon,
@@ -63,16 +62,17 @@ export default {
       user: null,
     };
   },
+  props: {
+    logout: {
+      type: Function,
+      required: true,
+    },
+  },
   async created() {
     this.user = {
       firstname: this.$store.getters.getCurrentUser.firstname,
       lastname: this.$store.getters.getCurrentUser.lastname,
     };
-  },
-  methods: {
-    logout() {
-      AuthServices.logout();
-    },
   },
 };
 </script>
