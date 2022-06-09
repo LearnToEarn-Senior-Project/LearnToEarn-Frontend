@@ -2,7 +2,12 @@
   <div class="px-[128px] py-[64px]" v-if="reward">
     <div class="flex">
       <div>
-        <img src="@/assets/case.png" class="min-w-[300px] h-[300px]" />
+        <img
+          v-if="reward.image"
+          :src="reward.image"
+          class="min-w-[300px] h-[300px]"
+        />
+        <img v-else src="@/assets/reward.png" class="min-w-[300px] h-[300px]" />
         <div class="flex justify-center items-center gap-2 mt-4">
           <Coin />
           <span class="text-[24px] font-bold">{{
@@ -31,11 +36,15 @@
       </div>
     </div>
     <div class="flex mt-4 w-full gap-4">
-      <SubmitButton text="Purchase" class="w-full" v-if="!isAdmin" />
+      <SubmitButton
+        text="Purchase"
+        class="w-full"
+        v-if="role[0] == 'student'"
+      />
       <SubmitButton
         text="Edit"
         class="w-full"
-        v-if="isAdmin"
+        v-if="role.includes('admin') && role[0] == 'admin'"
         :click="
           () =>
             this.$router.push({
@@ -47,7 +56,7 @@
         text="delete"
         class="w-full text-shade-white bg-error-700 hover:bg-error-800 active:bg-error-900"
         :click="deleteReward"
-        v-if="isAdmin"
+        v-if="role.includes('admin') && role[0] == 'admin'"
       />
     </div>
   </div>
@@ -66,7 +75,7 @@ export default {
   },
   data() {
     return {
-      isAdmin: true,
+      role: null,
       reward: null,
     };
   },
@@ -87,15 +96,19 @@ export default {
             false
           ).then((response) => {
             if (response.isConfirmed) {
-              this.$router.go(-1);
+              RewardServices.deleteRewardByID(this.$route.params.id).then(
+                () => {
+                  this.$router.go(-1);
+                }
+              );
             }
           });
         }
-        RewardServices.deleteRewardByID(this.$route.params.id);
       });
     },
   },
   async created() {
+    this.role = await this.$store.getters.getRole;
     RewardServices.getRewardByID(this.$route.params.id).then(() => {
       this.reward = this.$store.getters.getReward;
     });

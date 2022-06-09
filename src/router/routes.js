@@ -1,14 +1,20 @@
 import AuthServices from "@/services/authentication/AuthServices.js";
-
+import store from "@/store";
+import router from ".";
 const routes = [
   /*================== ALL ==================*/
   {
     path: "/",
-    name: "home",
+    name: "beforeLogin",
     component: () => import("../views/BeforeLogin.vue"),
-    beforeEnter: () => {
+    beforeEnter: async () => {
       if (localStorage.getItem("user") != null) {
-        location.replace("http://localhost:3000/test_component");
+        let role = await store.getters.getRole;
+        if (role[0] == "admin") {
+          router.push({ name: "adminConsole" });
+        } else {
+          router.push({ name: "testComponents" });
+        }
       }
     },
   },
@@ -21,7 +27,7 @@ const routes = [
   },
   {
     path: "/auth",
-    name: "MSOAuth",
+    name: "msOAuth",
     component: () => import("../views/MsLogin.vue"),
     meta: {
       requiresAuth: true,
@@ -54,33 +60,50 @@ const routes = [
   },
   /*=========== STUDENT AND ADMIN ===========*/
   {
-    path: "/rewards",
-    name: "rewardList",
-    component: () => import("../views/reward/RewardList.vue"),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
     path: "/reward/:id/",
     name: "rewardDetails",
     component: () => import("../views/reward/RewardDetails.vue"),
     meta: {
       requiresAuth: true,
+      adminAndStudent: true,
     },
   },
 
   /*================ STUDENT ================*/
-
+  {
+    path: "/rewardShop",
+    name: "rewardList",
+    component: () => import("../views/reward/RewardList.vue"),
+    meta: {
+      requiresAuth: true,
+      studentOnly: true,
+    },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
+  },
   /*================ TEACHER ================*/
 
   /*================= ADMIN =================*/
+  {
+    path: "/adminConsole",
+    name: "adminConsole",
+    component: () => import("../views/user/admin/AdminRewardList.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
+    },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
+  },
   {
     path: "/addRewards",
     name: "addReward",
     component: () => import("../views/reward/AddReward.vue"),
     meta: {
       requiresAuth: true,
+      adminOnly: true,
     },
   },
   {
@@ -89,6 +112,16 @@ const routes = [
     component: () => import("../views/reward/children/RewardEdit.vue"),
     meta: {
       requiresAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: "/addToken",
+    name: "addToken",
+    component: () => import("../views/user/admin/TokenManagement.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
     },
   },
 ];

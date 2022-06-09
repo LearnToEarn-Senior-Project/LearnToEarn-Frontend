@@ -1,8 +1,24 @@
 <template>
   <footer
-    class="min-w-full flex items-center gap-[30px] justify-center pt-8 text-[14px] hover:cursor-pointer text-right"
+    class="min-w-full flex items-center gap-[30px] justify-center pt-8 text-[16px] font-bold text-right"
   >
-    <DoubleLeft /><Left />1/2<Right class="fill-shade-black" /><DoubleRight />
+    <div class="flex gap-[30px]" v-if="page != 1">
+      <router-link :to="{ name: routes, query: { page: 1 } }">
+        <DoubleLeft class="hover:cursor-pointer" />
+      </router-link>
+      <router-link :to="{ name: routes, query: { page: page - 1 } }">
+        <Left class="hover:cursor-pointer" />
+      </router-link>
+    </div>
+    {{ page }} / {{ totalPage }}
+    <div class="flex gap-[30px]" v-if="page < totalPage">
+      <router-link :to="{ name: routes, query: { page: page + 1 } }">
+        <Right class="fill-shade-black hover:cursor-pointer" />
+      </router-link>
+      <router-link :to="{ name: routes, query: { page: totalPage } }">
+        <DoubleRight class="hover:cursor-pointer" />
+      </router-link>
+    </div>
   </footer>
 </template>
 
@@ -17,6 +33,20 @@ export default {
     Left,
     DoubleRight,
     DoubleLeft,
+  },
+  props: {
+    totalPage: {
+      type: Number,
+      required: true,
+    },
+    page: {
+      type: Number,
+      required: true,
+    },
+    routes: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>

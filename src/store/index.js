@@ -6,6 +6,7 @@ export default createStore({
     role: null,
     reward: null,
     rewards: null,
+    currentToken: null,
   },
   getters: {
     getCurrentUser(state) {
@@ -19,6 +20,9 @@ export default createStore({
     },
     getRewards(state) {
       return state.rewards;
+    },
+    getCurrentToken(state) {
+      return state.currentToken;
     },
   },
   mutations: {
@@ -34,6 +38,9 @@ export default createStore({
     setRewards(state, value) {
       state.rewards = value;
     },
+    setCurrentToken(state, value) {
+      state.currentToken = value;
+    },
   },
   actions: {
     setCurrentUser(context, value) {
@@ -47,6 +54,9 @@ export default createStore({
     },
     setRewards(context, value) {
       context.commit("setRewards", value);
+    },
+    setCurrentToken(context, value) {
+      context.commit("setCurrentToken", value);
     },
   },
 });

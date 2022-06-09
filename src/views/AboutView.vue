@@ -60,7 +60,7 @@ export default {
       this.$router.push({ name: "addReward" });
     },
   },
- /*  async created() {
+  /*  async created() {
     console.log(this.$msal.data);
     if (this.$msal.isAuthenticated) {
       this.user = await this.$msal.data.graph.profile;

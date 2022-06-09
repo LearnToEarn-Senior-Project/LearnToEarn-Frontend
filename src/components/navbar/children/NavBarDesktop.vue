@@ -2,11 +2,14 @@
   <div class="flex items-center justify-between">
     <div class="flex gap-x-16">
       <router-link
-        :to="{ name: 'home' }"
+        :to="{ name: 'beforeLogin' }"
         class="text-secondary-500 font-bold text-2xl hidden md:block"
         >LearnToEarn
       </router-link>
-      <div class="flex items-center gap-x-10">
+      <div
+        class="flex items-center gap-x-10"
+        v-if="user.role.includes('student') && user.role[0] == 'student'"
+      >
         <router-link
           v-for="item in NavBarItems"
           :key="item.id"
@@ -22,10 +25,10 @@
       <div class="flex items-center gap-x-6">
         <div
           class="flex items-center gap-x-2.5 text-shade-white font-bold text-sm"
+          v-if="user.role.includes('student') && user.role[0] == 'student'"
         >
           <Coin />
-          <!-- Var -->
-          10
+          {{ token }}
         </div>
         <div class="ml-4 md:block flex items-center relative">
           <button
@@ -41,7 +44,7 @@
           </button>
           <div
             id="user-menu-dropdown"
-            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md"
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md z-40"
           >
             <div
               class="py-1 rounded-md text-center bg-shade-white shadow-xs border-2 border-neutral-400"
@@ -54,6 +57,33 @@
                 class="w-full justify-center text-sm font-bold text-shade-black"
               >
                 <div class="hover:bg-neutral-100 py-2">Account Setting</div>
+              </router-link>
+              <router-link
+                v-if="user.role.includes('admin') && user.role[0] != 'admin'"
+                :to="{ name: 'adminConsole' }"
+                class="w-full justify-center text-sm font-bold text-shade-black"
+              >
+                <div class="hover:bg-neutral-100 py-2" @click="swap">
+                  Go to Admin Console
+                </div>
+              </router-link>
+              <router-link
+                v-if="user.role.includes('admin') && user.role[1] == 'student'"
+                :to="{ name: 'rewardList' }"
+                class="w-full justify-center text-sm font-bold text-shade-black"
+              >
+                <div class="hover:bg-neutral-100 py-2" @click="swap">
+                  Go to student site
+                </div>
+              </router-link>
+              <router-link
+                v-if="user.role.includes('admin') && user.role[1] == 'teacher'"
+                :to="{ name: 'rewardList' }"
+                class="w-full justify-center text-sm font-bold text-shade-black"
+              >
+                <div class="hover:bg-neutral-100 py-2" @click="swap">
+                  Go to teacher site
+                </div>
               </router-link>
               <button
                 class="w-full justify-center py-2 text-sm font-bold text-shade-black hover:bg-neutral-100"
@@ -70,6 +100,7 @@
 </template>
 <script>
 import NavBarItem from "@/components/navbar/children/items/NavBarItemDesktop";
+import NavBarProps from "@/components/navbar/children/items/NavBarProps";
 import DropdownIcon from "@/assets/icons/chevron-down.svg?inline";
 import Coin from "@/assets/icons/coin/coin_md.svg?inline";
 export default {
@@ -80,21 +111,9 @@ export default {
   data() {
     return {
       NavBarItems: NavBarItem,
-      user: null,
     };
   },
-  props: {
-    logout: {
-      type: Function,
-      required: true,
-    },
-  },
-  async created() {
-    this.user = {
-      firstname: this.$store.getters.getCurrentUser.firstname,
-      lastname: this.$store.getters.getCurrentUser.lastname,
-    };
-  },
+  props: NavBarProps,
 };
 </script>
 

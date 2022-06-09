@@ -1,7 +1,6 @@
 <template>
   <BaseButton
     :text="text"
-    :popup="popup"
     class="text-shade-white bg-primary-400 hover:bg-primary-700 active:bg-primary-900"
   />
 </template>
@@ -12,11 +11,8 @@ export default {
   props: {
     text: {
       type: String,
+      required: false,
       default: "Save",
-    },
-    popup: {
-      type: Boolean,
-      default: true,
     },
   },
 };

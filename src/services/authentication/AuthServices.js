@@ -1,9 +1,9 @@
 import apiClient from "@/services/axios/AxiosClient.js";
-import msal from "vue-msal";
+import router from "@/router";
 
 export default {
   async login(code) {
-    const responseGetToken = await apiClient.post("/login", { code: code });
+    const responseGetToken = await apiClient.post("/login/" + code);
     const responseGetData = await apiClient.get(
       "/credentials/" + responseGetToken.data.access_token
     );
@@ -31,22 +31,25 @@ export default {
       console.log("Add user success");
       responseGetUserByID = await apiClient.get("/getUser/" + userObject.id);
     }
-    /* localStorage.setItem(
-      "token",
-      JSON.stringify({
-        access_token: responseGetToken.data.access_token,
-        refresh_token: responseGetToken.data.refresh_token,
-      })
-    ); */
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
     setTimeout(() => {
-      location.replace("http://localhost:3000/auth");
+      router.push({ name: "msOAuth" });
     }, 100);
   },
-  msLogin(id_token) {},
+  async getRole() {
+    let role = await apiClient.get(
+      "/getRole/" + JSON.parse(localStorage.getItem("user"))._id
+    );
+    return role.data;
+  },
+  async swapRole() {
+    let role = await apiClient.get(
+      "/swapRole/" + JSON.parse(localStorage.getItem("user"))._id
+    );
+    return role.data;
+  },
   logout() {
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
-    location.replace("http://localhost:3000/");
+    router.push({ name: "beforeLogin" });
   },
 };

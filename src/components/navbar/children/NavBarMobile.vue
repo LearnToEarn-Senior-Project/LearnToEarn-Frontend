@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between">
     <div @click="menuOpen = false">
       <router-link
-        :to="{ name: 'home' }"
+        :to="{ name: 'beforeLogin' }"
         class="text-secondary-500 font-bold text-2xl md:hidden"
         >LearnToEarn
       </router-link>
@@ -25,20 +25,51 @@
     >
       Current Token
       <img src="@/assets/icons/coin/coin_md.png" />
-      <!-- Var -->
-      10
+      {{ token }}
     </div>
     <div @click="menuOpen = false">
+      <div v-if="user.role[0] != 'admin'">
+        <router-link
+          v-for="item in NavBarItems"
+          :key="item.id"
+          :to="{ name: item.pageName }"
+          class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 mt-2"
+        >
+          {{ item.title }}
+        </router-link>
+      </div>
+      <div v-if="user.role[0] == 'admin'">
+        <router-link
+          :to="{ name: 'accountSetting' }"
+          class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 mt-2"
+        >
+          Account Setting
+        </router-link>
+      </div>
+
       <router-link
-        v-for="item in NavBarItems"
-        :key="item.id"
-        :to="{ name: item.pageName }"
+        v-if="user.role.includes('admin') && user.role[0] != 'admin'"
+        :to="{ name: 'adminConsole' }"
         class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 mt-2"
       >
-        {{ item.title }}
+        <div @click="swap">Go to Admin Console</div>
+      </router-link>
+      <router-link
+        v-if="user.role.includes('admin') && user.role[1] == 'student'"
+        :to="{ name: 'rewardList' }"
+        class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 mt-2"
+      >
+        <div @click="swap">Go to student site</div>
+      </router-link>
+      <router-link
+        v-if="user.role.includes('admin') && user.role[1] == 'teacher'"
+        :to="{ name: 'rewardList' }"
+        class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 mt-2"
+      >
+        <div @click="swap">Go to teacher site</div>
       </router-link>
       <div
-        class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 hover:cursor-pointer"
+        class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 hover:cursor-pointer mt-2"
         @click="logout"
       >
         Logout
@@ -48,6 +79,7 @@
 </template>
 <script>
 import NavBarItem from "@/components/navbar/children/items/NavBarItemMobile";
+import NavBarProps from "@/components/navbar/children/items/NavBarProps";
 import CoinLG from "@/assets/icons/coin/coin_md.svg?inline";
 import MenuIcon from "@/assets/icons/menu.svg?inline";
 export default {
@@ -59,20 +91,8 @@ export default {
     return {
       menuOpen: false,
       NavBarItems: NavBarItem,
-      user: null,
     };
   },
-  props: {
-    logout: {
-      type: Function,
-      required: true,
-    },
-  },
-  async created() {
-    this.user = {
-      firstname: this.$store.getters.getCurrentUser.firstname,
-      lastname: this.$store.getters.getCurrentUser.lastname,
-    };
-  },
+  props: NavBarProps,
 };
 </script>

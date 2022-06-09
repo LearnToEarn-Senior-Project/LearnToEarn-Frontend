@@ -17,7 +17,6 @@
 <script>
 import BaseButton from "@/components/button/BaseButton";
 export default {
-  name: "HomeView",
   components: {
     BaseButton,
   },

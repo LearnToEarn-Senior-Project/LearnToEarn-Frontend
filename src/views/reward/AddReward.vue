@@ -27,6 +27,7 @@
             :max="1"
             maxError="Can add only one image"
             uploadMsg="Upload Image"
+            @changed="handleImages"
           />
         </div>
       </div>
@@ -40,7 +41,7 @@
         <ErrorMessage name="details" class="text-error-900 text-[12px]" />
       </div>
       <div class="flex gap-4 mt-4 w-full">
-        <SubmitButton text="Add" class="w-full" type="submit" />
+        <SubmitButton text="Add" class="w-full" />
         <CancelButton class="w-full" :click="() => this.$router.go(-1)" />
       </div>
     </Form>
@@ -75,9 +76,13 @@ export default {
     return {
       schema,
       AddRewardItems,
+      img: [],
     };
   },
   methods: {
+    handleImages(event) {
+      this.img = event;
+    },
     addReward(data) {
       showAlert(
         "confirm",
@@ -94,16 +99,25 @@ export default {
             false
           ).then((response) => {
             if (response.isConfirmed) {
-              this.$router.go(-1);
+              Promise.all(
+                this.img.map((file) => {
+                  return RewardServices.uploadImage(file);
+                })
+              )
+                .then((response) => {
+                  RewardServices.addReward(
+                    data.name,
+                    data.details,
+                    data.amount,
+                    data.price,
+                    JSON.parse(JSON.stringify(response.map((r) => r.data)))[0]
+                  );
+                })
+                .then(() => {
+                  this.$router.go(-1);
+                });
             }
           });
-          RewardServices.addReward(
-            data.name,
-            data.details,
-            data.amount,
-            data.price,
-            "qweqw"
-          );
         }
       });
     },

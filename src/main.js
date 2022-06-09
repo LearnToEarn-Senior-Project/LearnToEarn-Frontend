@@ -33,13 +33,13 @@ const msauthOption = {
     callAfterInit: true,
     endpoints: {
       profile: "/me",
-      allTeams: "/me/joinedTeams",
+      /*  allTeams: "/me/joinedTeams", */
     },
   },
   request: {
     scopes: [
       "User.Read",
-      "Team.ReadBasic.All",
+      /* "Team.ReadBasic.All", */
       /* "TeamSettings.Read.All",
       "TeamSettings.ReadWrite.All",
       "Directory.Read.All",
