@@ -46,36 +46,6 @@ export default {
     as: {
       type: String,
     },
-    regex: {
-      type: String,
-    },
-  },
-
-  methods: {
-    preventInput(regex, event) {
-      if (regex == "combine") {
-        this.isLetterOrNumber(event);
-      } else if (regex == "textOnly") {
-        this.isLetterOnly(event);
-      } else if (regex == "numberOnly") {
-        this.isNumberOnly(event);
-      }
-    },
-    isLetterOrNumber(e) {
-      let char = String.fromCharCode(e.keyCode);
-      if (/^[A-Za-z0-9_-]+$/.test(char)) return true;
-      else e.preventDefault();
-    },
-    isLetterOnly(e) {
-      let char = String.fromCharCode(e.keyCode);
-      if (/^[A-Za-z-]+$/.test(char)) return true;
-      else e.preventDefault();
-    },
-    isNumberOnly(e) {
-      let char = String.fromCharCode(e.keyCode);
-      if (/^[0-9]+$/.test(char)) return true;
-      else e.preventDefault();
-    },
   },
 };
 </script>
