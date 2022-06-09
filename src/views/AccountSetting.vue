@@ -37,7 +37,7 @@
   </footer>
 </template>
 <script>
-import AuthServices from "@/services/AuthServices.js";
+import GoogleServices from "@/services/authentication/GoogleServices.js";
 import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
 export default {
   data() {
@@ -47,7 +47,7 @@ export default {
     };
   },
   created() {
-    AuthServices.getGoogleData().then((response) => {
+    GoogleServices.getGoogleData().then((response) => {
       this.user = response.data;
     });
   },
@@ -57,7 +57,7 @@ export default {
       if (!googleUser) {
         return null;
       }
-      AuthServices.bindGoogleAccount(googleUser).then(() => {
+      GoogleServices.bindGoogleAccount(googleUser).then(() => {
         this.$router.go();
       });
     },
@@ -78,7 +78,7 @@ export default {
           ).then((response) => {
             if (response.isConfirmed) {
               this.$gAuth.signOut();
-              AuthServices.unbindGoogleAccount();
+              GoogleServices.unbindGoogleAccount();
               this.$router.go();
             }
           });

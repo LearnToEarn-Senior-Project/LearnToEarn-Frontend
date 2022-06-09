@@ -16,9 +16,7 @@
 
 <script>
 import BaseButton from "@/components/button/BaseButton";
-import AuthServices from "@/services/AuthServices.js";
 export default {
-  name: "HomeView",
   components: {
     BaseButton,
   },

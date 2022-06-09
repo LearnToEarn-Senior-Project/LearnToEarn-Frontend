@@ -1,21 +1,22 @@
 <template>
   <div class="about p-8">
+    {{ msLogin }}
+    {{ user }}
     <h1>This is an about page</h1>
-    <SubmitButton :click="addReward" class="mr-4" />
+    <SubmitButton :click="goToAddRewardPage" class="mr-4" text="Add Reward" />
     <SubmitButton :click="getClassroom" text="Test Get Classroom" />
-    <Form :validation-schema="schema" class="mt-4">
+    <div class="mt-4">
       <BaseInput name="name" placeholder="Text Box" type="text" />
       <BaseInput name="textarea" placeholder="Text Area" type="textarea" />
-    </Form>
-    <div class="flex gap-4 mb-4"><RewardCard /> <ClassroomCard /></div>
+    </div>
+    <ClassroomCard />
+    <!-- <div class="flex gap-4 mb-4"><RewardCard /> </div> -->
     <StudentCard class="mb-4" />
     <AssignmentCard />
   </div>
 </template>
 <script>
-import RewardServices from "@/services/RewardServices.js";
 import ClassroomServices from "@/services/ClassroomServices.js";
-
 import SubmitButton from "@/components/button/children/SubmitButton";
 import BaseInput from "@/components/input/BaseInput";
 import RewardCard from "@/components/card/RewardCard";
@@ -31,6 +32,12 @@ export default {
     ClassroomCard,
     StudentCard,
     AssignmentCard,
+  },
+  data() {
+    return {
+      user: this.$msal.data.accessToken,
+      msLogin: this.$msal.isAuthenticated(),
+    };
   },
   methods: {
     addReward() {
@@ -49,6 +56,15 @@ export default {
     getClassroom() {
       ClassroomServices.getAllClassroom();
     },
+    goToAddRewardPage() {
+      this.$router.push({ name: "addReward" });
+    },
   },
+  /*  async created() {
+    console.log(this.$msal.data);
+    if (this.$msal.isAuthenticated) {
+      this.user = await this.$msal.data.graph.profile;
+    }
+  }, */
 };
 </script>

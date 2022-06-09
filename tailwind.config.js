@@ -21,7 +21,7 @@ module.exports = {
         900: "#565659",
       },
       primary: {
-        50: "e5eeff",
+        50: "#e5eeff",
         100: "#cfe0ff",
         200: "#a9c4ff",
         300: "#759aff",
@@ -76,10 +76,9 @@ module.exports = {
     screens: {
       xs: "320px",
       sm: "640px",
-      md: "809px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
+      md: "1024px",
+      lg: "1280px",
+      xl: "1536px",
     },
     extend: {},
   },

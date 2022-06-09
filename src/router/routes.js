@@ -1,28 +1,40 @@
-import CONSTANT_ROUTES from "@/constants/routes";
-import AuthServices from "@/services/AuthServices.js";
-
+import AuthServices from "@/services/authentication/AuthServices.js";
+import store from "@/store";
+import router from ".";
 const routes = [
   /*================== ALL ==================*/
   {
-    path: CONSTANT_ROUTES.HOME,
-    name: "home",
+    path: "/",
+    name: "beforeLogin",
     component: () => import("../views/BeforeLogin.vue"),
-    beforeEnter: () => {
+    beforeEnter: async () => {
       if (localStorage.getItem("user") != null) {
-        location.replace("http://localhost:3000/test_component");
+        let role = await store.getters.getRole;
+        if (role[0] == "admin") {
+          router.push({ name: "adminConsole" });
+        } else {
+          router.push({ name: "testComponents" });
+        }
       }
     },
   },
   {
-    path: CONSTANT_ROUTES.CMU_OAUTH_LOGIN,
+    path: "/redirect",
     name: "OAuthRedirect",
-    component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: (route) => {
       return AuthServices.login(route.query.code);
     },
   },
   {
-    path: CONSTANT_ROUTES.ABOUT,
+    path: "/auth",
+    name: "msOAuth",
+    component: () => import("../views/MsLogin.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/test_component",
     name: "testComponents",
     component: () => import("../views/AboutView.vue"),
     meta: {
@@ -31,7 +43,7 @@ const routes = [
   },
   /*========== STUDENT AND TEACHER ==========*/
   {
-    path: CONSTANT_ROUTES.ACCOUNT_SETTING,
+    path: "/account_setting",
     name: "accountSetting",
     component: () => import("../views/AccountSetting.vue"),
     meta: {
@@ -39,7 +51,7 @@ const routes = [
     },
   },
   {
-    path: CONSTANT_ROUTES.CLASSROOM_LIST,
+    path: "/classrooms",
     name: "classroomList",
     component: () => import("../views/classroom/ClassroomList.vue"),
     meta: {
@@ -48,17 +60,69 @@ const routes = [
   },
   /*=========== STUDENT AND ADMIN ===========*/
   {
-    path: CONSTANT_ROUTES.REWARD_LIST,
+    path: "/reward/:id/",
+    name: "rewardDetails",
+    component: () => import("../views/reward/RewardDetails.vue"),
+    meta: {
+      requiresAuth: true,
+      adminAndStudent: true,
+    },
+  },
+
+  /*================ STUDENT ================*/
+  {
+    path: "/rewardShop",
     name: "rewardList",
     component: () => import("../views/reward/RewardList.vue"),
     meta: {
       requiresAuth: true,
+      studentOnly: true,
     },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
   },
-  /*================ STUDENT ================*/
-
   /*================ TEACHER ================*/
 
   /*================= ADMIN =================*/
+  {
+    path: "/adminConsole",
+    name: "adminConsole",
+    component: () => import("../views/user/admin/AdminRewardList.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
+    },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
+  },
+  {
+    path: "/addRewards",
+    name: "addReward",
+    component: () => import("../views/reward/AddReward.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: "/reward/:id/edit",
+    name: "rewardEdit",
+    component: () => import("../views/reward/children/RewardEdit.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
+    },
+  },
+  {
+    path: "/addToken",
+    name: "addToken",
+    component: () => import("../views/user/admin/TokenManagement.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
+    },
+  },
 ];
 export default routes;
