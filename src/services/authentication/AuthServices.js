@@ -36,6 +36,11 @@ export default {
       router.push({ name: "msOAuth" });
     }, 100);
   },
+  MSLogin() {
+    setTimeout(() => {
+      router.push({ name: "beforeLogin" });
+    }, 100);
+  },
   async getRole() {
     let role = await apiClient.get(
       "/getRole/" + JSON.parse(localStorage.getItem("user"))._id

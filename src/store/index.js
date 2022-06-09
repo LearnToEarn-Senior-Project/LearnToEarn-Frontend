@@ -6,6 +6,8 @@ export default createStore({
     role: null,
     reward: null,
     rewards: null,
+    classroom: null,
+    classrooms: null,
     currentToken: null,
   },
   getters: {
@@ -20,6 +22,12 @@ export default createStore({
     },
     getRewards(state) {
       return state.rewards;
+    },
+    getClassroom(state) {
+      return state.classroom;
+    },
+    getClassrooms(state) {
+      return state.classrooms;
     },
     getCurrentToken(state) {
       return state.currentToken;
@@ -38,6 +46,12 @@ export default createStore({
     setRewards(state, value) {
       state.rewards = value;
     },
+    setClassroom(state, value) {
+      state.classroom = value;
+    },
+    setClassrooms(state, value) {
+      state.classrooms = value;
+    },
     setCurrentToken(state, value) {
       state.currentToken = value;
     },
@@ -54,6 +68,12 @@ export default createStore({
     },
     setRewards(context, value) {
       context.commit("setRewards", value);
+    },
+    setClassroom(context, value) {
+      context.commit("setClassroom", value);
+    },
+    setClassrooms(context, value) {
+      context.commit("setClassrooms", value);
     },
     setCurrentToken(context, value) {
       context.commit("setCurrentToken", value);

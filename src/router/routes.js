@@ -8,12 +8,12 @@ const routes = [
     name: "beforeLogin",
     component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: async () => {
-      if (localStorage.getItem("user") != null) {
+      if (localStorage.getItem("user") != null && localStorage.length > 1) {
         let role = await store.getters.getRole;
         if (role[0] == "admin") {
           router.push({ name: "adminConsole" });
         } else {
-          router.push({ name: "testComponents" });
+          router.push({ name: "classroomList" });
         }
       }
     },
@@ -31,6 +31,9 @@ const routes = [
     component: () => import("../views/MsLogin.vue"),
     meta: {
       requiresAuth: true,
+    },
+    beforeEnter: () => {
+      AuthServices.MSLogin();
     },
   },
   {
@@ -57,6 +60,9 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
   },
   /*=========== STUDENT AND ADMIN ===========*/
   {
