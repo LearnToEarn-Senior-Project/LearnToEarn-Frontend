@@ -32,7 +32,7 @@ export default {
       responseGetUserByID = await apiClient.get("/getUser/" + userObject.id);
     }
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
-    setTimeout(() => {
+     setTimeout(() => {
       router.push({ name: "msOAuth" });
     }, 100);
   },

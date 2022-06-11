@@ -36,7 +36,11 @@ export default {
   async created() {
     await ClassroomServices.getAllClassroom(this.page).then(() => {
       this.totalClassrooms = this.$store.getters.getClassrooms.total_classrooms;
-      this.totalPage = Math.ceil(this.totalClassrooms / 4);
+      if (this.totalClassrooms == 0) {
+        this.totalPage = 1;
+      } else {
+        this.totalPage = Math.ceil(this.totalClassrooms / 4);
+      }
       this.classrooms = this.$store.getters.getClassrooms.classroom_list;
     });
   },
