@@ -82,7 +82,6 @@ export default {
   methods: {
     handleImages(event) {
       this.img = event;
-      console.log(this.img);
     },
     addReward(data) {
       showAlert(

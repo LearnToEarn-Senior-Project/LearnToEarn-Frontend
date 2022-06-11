@@ -33,8 +33,16 @@
           <td>{{ reward.price }}</td>
           <td>{{ reward.amount }}</td>
           <td class="flex justify-center">
-            <img class="h-10" v-if="reward.image" :src="reward.image" />
-            <img class="h-10" v-else src="@/assets/reward.png" />
+            <img
+              class="h-10 w-10 object-cover border-2 border-neutral-300 rounded-lg"
+              v-if="reward.image"
+              :src="reward.image"
+            />
+            <img
+              class="h-10 w-10 object-cover border-2 border-neutral-300 rounded-lg"
+              v-else
+              src="@/assets/reward.png"
+            />
           </td>
           <td>
             <SubmitButton

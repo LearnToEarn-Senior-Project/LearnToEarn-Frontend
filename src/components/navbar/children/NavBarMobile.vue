@@ -25,7 +25,7 @@
     >
       Current Token
       <img src="@/assets/icons/coin/coin_md.png" />
-      {{ token }}
+      {{ token.toFixed(4) }}
     </div>
     <div @click="menuOpen = false">
       <div v-if="user.role[0] != 'admin'">

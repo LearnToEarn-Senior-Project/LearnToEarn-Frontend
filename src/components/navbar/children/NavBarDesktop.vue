@@ -28,7 +28,7 @@
           v-if="user.role.includes('student') && user.role[0] == 'student'"
         >
           <Coin />
-          {{ token }}
+          {{ token.toFixed(4) }}
         </div>
         <div class="ml-4 md:block flex items-center relative">
           <button

@@ -45,7 +45,6 @@ export default {
     },
   },
   async created() {
-    console.log(this.$msal.data);
     if (this.$msal.isAuthenticated) {
       this.user = await this.$msal.data.graph.profile;
     }
