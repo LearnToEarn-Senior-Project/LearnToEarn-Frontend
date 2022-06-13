@@ -40,6 +40,7 @@
         text="Purchase"
         class="w-full"
         v-if="role[0] == 'student'"
+        :click="maintain"
       />
       <SubmitButton
         text="Edit"
@@ -105,6 +106,15 @@ export default {
           });
         }
       });
+    },
+    maintain() {
+      showAlert(
+        "Maintain",
+        "This feature is not available at now!!",
+        "",
+        "confirm",
+        false
+      );
     },
   },
   async created() {

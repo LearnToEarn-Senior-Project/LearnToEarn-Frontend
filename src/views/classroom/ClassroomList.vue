@@ -44,15 +44,6 @@ export default {
       this.classrooms = this.$store.getters.getClassrooms.classroom_list;
     });
   },
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    ClassroomServices.getAllClassroom(parseInt(routeTo.query.page) || 1).then(
-      (response) => {
-        next((computed) => {
-          computed.classrooms = response;
-        });
-      }
-    );
-  },
   beforeRouteUpdate(routeTo) {
     ClassroomServices.getAllClassroom(parseInt(routeTo.query.page) || 1).then(
       () => {

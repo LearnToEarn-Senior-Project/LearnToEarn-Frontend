@@ -11,4 +11,8 @@ export default {
     );
     store.dispatch("setClassrooms", getAllClassrooms.data);
   },
+  async getClassroomById(course_id) {
+    const getClassroom = await apiClient.get("/getClassroom/" + course_id);
+    store.dispatch("setClassroom", getClassroom.data);
+  },
 };

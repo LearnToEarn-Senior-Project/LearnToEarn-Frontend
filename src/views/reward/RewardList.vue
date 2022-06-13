@@ -36,15 +36,6 @@ export default {
       this.rewards = this.$store.getters.getRewards.reward_list;
     });
   },
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    RewardServices.getRewardsWithPagination(
-      parseInt(routeTo.query.page) || 1
-    ).then((response) => {
-      next((computed) => {
-        computed.rewards = response;
-      });
-    });
-  },
   beforeRouteUpdate(routeTo) {
     RewardServices.getRewardsWithPagination(
       parseInt(routeTo.query.page) || 1

@@ -1,5 +1,6 @@
 import AuthServices from "@/services/authentication/AuthServices.js";
 import router from ".";
+import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
 const routes = [
   /*================== ALL ==================*/
   {
@@ -42,6 +43,19 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+    beforeEnter: () => {
+      showAlert(
+        "Maintain",
+        "This feature is not available at now!!",
+        "",
+        "confirm",
+        false
+      ).then((response) => {
+        if (response.isConfirmed) {
+          router.go(-1);
+        }
+      });
+    },
   },
   /*========== STUDENT AND TEACHER ==========*/
   {
@@ -62,6 +76,14 @@ const routes = [
     props: (route) => ({
       page: parseInt(route.query.page) || 1,
     }),
+  },
+  {
+    path: "/classroom/:id",
+    name: "classroomDetail",
+    component: () => import("../views/classroom/ClassroomDetails.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   /*=========== STUDENT AND ADMIN ===========*/
   {

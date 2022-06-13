@@ -1,5 +1,6 @@
 <template>
-  <div
+  <router-link
+    :to="{ name: 'classroomDetail', params: { id: classroom._id } }"
     class="w-[359px] h-[171px] rounded-[20px] border-[2.5px] border-neutral-400 card-shadow bg-shade-white hover:cursor-pointer p-[10px]"
   >
     <div
@@ -7,7 +8,7 @@
     >
       <div class="truncate w-full mr-2">{{ classroom.name }}</div>
       <div class="flex items-center gap-[12px]">
-        <Member /> <span>{{ classroom.total_member }}</span>
+        <Member /> <span>{{ classroom.total_students }}</span>
       </div>
     </div>
     <div
@@ -21,7 +22,7 @@
     >
       Go to the classroom <Right />
     </div>
-  </div>
+  </router-link>
 </template>
 <script>
 import Member from "@/assets/icons/member.svg?inline";
