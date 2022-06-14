@@ -7,14 +7,11 @@
       class="px-[15px] py-[10px] font-bold text-[28px] justify-between flex items-center"
     >
       <div class="truncate w-full mr-2">{{ classroom.name }}</div>
-      <div class="flex items-center gap-[12px]">
-        <Member /> <span>{{ classroom.total_students }}</span>
-      </div>
     </div>
     <div
       class="px-[15px] py-[10px] text-[14px] flex items-center font-semibold"
     >
-      <div>By: {{ classroom.teacher.name }}</div>
+      <div>By: {{ classroom.teacher }}</div>
     </div>
     <div class="h-[20px]"></div>
     <div
@@ -25,11 +22,9 @@
   </router-link>
 </template>
 <script>
-import Member from "@/assets/icons/member.svg?inline";
 import Right from "@/assets/icons/chevron-right.svg?inline";
 export default {
   components: {
-    Member,
     Right,
   },
   props: {

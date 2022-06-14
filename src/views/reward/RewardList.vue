@@ -2,9 +2,20 @@
   <div class="py-8 px-28" v-if="rewards">
     <div class="font-bold text-[48px] text-center mb-8">Reward Shop</div>
     <div class="gap-[32px] flex flex-wrap items-center">
+      <div
+        v-if="totalRewards == 0"
+        class="w-full h-full text-center text-error-700 text-[24px]"
+      >
+        The reward are not available at now, please come again later.
+      </div>
       <RewardCard v-for="reward in rewards" :key="reward.id" :reward="reward" />
     </div>
-    <Pagination :page="page" :totalPage="totalPage" routes="rewardList" />
+    <Pagination
+      :page="page"
+      :totalPage="totalPage"
+      routes="rewardList"
+      v-if="totalRewards > 0"
+    />
   </div>
 </template>
 <script>
@@ -26,13 +37,15 @@ export default {
     return {
       rewards: null,
       totalRewards: 0,
-      totalPage: 0,
+      totalPage: 1,
     };
   },
   async created() {
     await RewardServices.getRewardsWithPagination(this.page).then(() => {
       this.totalRewards = this.$store.getters.getRewards.total_rewards;
-      this.totalPage = Math.ceil(this.totalRewards / 10);
+      if (this.totalRewards > 0) {
+        this.totalPage = Math.ceil(this.totalRewards / 10);
+      }
       this.rewards = this.$store.getters.getRewards.reward_list;
     });
   },

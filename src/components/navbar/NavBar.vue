@@ -26,7 +26,7 @@ export default {
   methods: {
     logout() {
       AuthServices.logout();
-      this.$msal.signOut();
+      /*  this.$msal.signOut(); */
     },
     swapRole() {
       AuthServices.swapRole().then((response) => {

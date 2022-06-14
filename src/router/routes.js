@@ -8,7 +8,7 @@ const routes = [
     name: "beforeLogin",
     component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: async () => {
-      if (localStorage.getItem("user") != null && localStorage.length > 1) {
+      if (localStorage.getItem("user") != null) {
         let role = await AuthServices.getRole();
         if (role[0] == "admin") {
           router.push({ name: "adminConsole" });

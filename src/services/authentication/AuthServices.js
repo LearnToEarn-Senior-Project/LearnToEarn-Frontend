@@ -32,8 +32,8 @@ export default {
       responseGetUserByID = await apiClient.get("/getUser/" + userObject.id);
     }
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
-     setTimeout(() => {
-      router.push({ name: "msOAuth" });
+    setTimeout(() => {
+      window.location.href = "http://localhost:3000/";
     }, 100);
   },
   MSLogin() {
@@ -54,7 +54,8 @@ export default {
     return role.data;
   },
   logout() {
-    localStorage.removeItem("user");
-    router.push({ name: "beforeLogin" });
+    localStorage.removeItem("user").then(() => {
+      router.push({ name: "beforeLogin" });
+    });
   },
 };
