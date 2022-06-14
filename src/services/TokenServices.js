@@ -7,7 +7,7 @@ export default {
     return JSON.parse(studentCurrentToken.data);
   },
   async addToken(token) {
-    return apiClient.post("/addToken", { amount: token });
+    return apiClient.post("/addToken", { amount: parseFloat(token) });
   },
   async getAllToken() {
     let allToken = await apiClient.get("/getAllToken");

@@ -53,6 +53,7 @@
               aria-labelledby="user-menu"
             >
               <router-link
+                v-if="user.role[0] != 'admin'"
                 :to="{ name: 'accountSetting' }"
                 class="w-full justify-center text-sm font-bold text-shade-black"
               >

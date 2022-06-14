@@ -38,7 +38,7 @@
           {{ item.title }}
         </router-link>
       </div>
-      <div v-if="user.role[0] == 'admin'">
+      <div v-if="user.role[0] != 'admin'">
         <router-link
           :to="{ name: 'accountSetting' }"
           class="text-shade-white text-sm font-bold flex items-center justify-center rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 mt-2"
