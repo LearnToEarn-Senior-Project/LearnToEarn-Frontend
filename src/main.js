@@ -50,7 +50,7 @@ const msauthOption = {
 createApp(App)
   .use(store)
   .use(router)
-  .use(msal, msauthOption)
+  /* .use(msal, msauthOption) */
   .use(GAuth, gauthOption)
   .use(VueSweetalert2, options)
   .mount("#app");

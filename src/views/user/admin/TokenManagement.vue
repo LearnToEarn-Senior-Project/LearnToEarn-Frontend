@@ -4,7 +4,7 @@
       <div class="font-bold text-[44px] mb-4 text-center">Add Token</div>
       <div class="font-bold text-[20px] mb-4">
         Current Token in the pool:
-        <span class="text-primary-500">{{ allToken }}</span>
+        <span class="text-primary-500">{{ allToken.toFixed(4) }}</span>
       </div>
       <Form @submit="addToken" :validation-schema="schema">
         <div class="flex flex-col">

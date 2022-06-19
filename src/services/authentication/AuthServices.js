@@ -18,7 +18,7 @@ export default {
       };
     } catch (error) {
       userObject = {
-        id: responseGetData.data.OrganizationID1,
+        id: "teacher_id",
         email: responseGetData.data.Email,
         firstname: responseGetData.data.NameEng,
         lastname: responseGetData.data.MiddleNameEng,
@@ -33,7 +33,12 @@ export default {
     }
     localStorage.setItem("user", JSON.stringify(responseGetUserByID.data[0]));
     setTimeout(() => {
-      router.push({ name: "msOAuth" });
+      window.location.href = "http://localhost:3000/";
+    }, 100);
+  },
+  MSLogin() {
+    setTimeout(() => {
+      router.push({ name: "beforeLogin" });
     }, 100);
   },
   async getRole() {

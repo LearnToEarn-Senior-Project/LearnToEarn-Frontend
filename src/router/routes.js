@@ -1,6 +1,6 @@
 import AuthServices from "@/services/authentication/AuthServices.js";
-import store from "@/store";
 import router from ".";
+import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
 const routes = [
   /*================== ALL ==================*/
   {
@@ -9,11 +9,11 @@ const routes = [
     component: () => import("../views/BeforeLogin.vue"),
     beforeEnter: async () => {
       if (localStorage.getItem("user") != null) {
-        let role = await store.getters.getRole;
+        let role = await AuthServices.getRole();
         if (role[0] == "admin") {
           router.push({ name: "adminConsole" });
         } else {
-          router.push({ name: "testComponents" });
+          router.push({ name: "classroomList" });
         }
       }
     },
@@ -32,6 +32,9 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+    beforeEnter: () => {
+      AuthServices.MSLogin();
+    },
   },
   {
     path: "/test_component",
@@ -39,6 +42,19 @@ const routes = [
     component: () => import("../views/AboutView.vue"),
     meta: {
       requiresAuth: true,
+    },
+    beforeEnter: () => {
+      showAlert(
+        "Maintain",
+        "This feature is not available at now!!",
+        "",
+        "confirm",
+        false
+      ).then((response) => {
+        if (response.isConfirmed) {
+          router.go(-1);
+        }
+      });
     },
   },
   /*========== STUDENT AND TEACHER ==========*/
@@ -54,6 +70,17 @@ const routes = [
     path: "/classrooms",
     name: "classroomList",
     component: () => import("../views/classroom/ClassroomList.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
+  },
+  {
+    path: "/classroom/:id",
+    name: "classroomDetail",
+    component: () => import("../views/classroom/ClassroomDetails.vue"),
     meta: {
       requiresAuth: true,
     },

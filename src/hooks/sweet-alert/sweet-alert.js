@@ -14,8 +14,6 @@ export const showAlert = (
         ? "question"
         : alertType === "success"
         ? "success"
-        : alertType === "delete"
-        ? deleteImage
         : "error",
     iconColor: "#1425ff",
     confirmButtonText: confirmText,

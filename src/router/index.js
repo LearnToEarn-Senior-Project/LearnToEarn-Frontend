@@ -55,8 +55,9 @@ router.beforeEach(async (to, from, next) => {
         } else {
           next({ name: "accountSetting" });
         }
+      } else {
+        next();
       }
-      next();
     }
   } else {
     next();

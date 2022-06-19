@@ -14,7 +14,7 @@
           v-for="item in NavBarItems"
           :key="item.id"
           :to="{ name: item.pageName }"
-          class="text-shade-white text-sm font-bold hidden md:block rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900 focus:bg-secondary-100 focus:text-primary-900"
+          class="text-shade-white text-sm font-bold hidden md:block rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900"
           exact-active-class="bg-secondary-100 text-primary-900"
         >
           {{ item.title }}
@@ -28,7 +28,7 @@
           v-if="user.role.includes('student') && user.role[0] == 'student'"
         >
           <Coin />
-          {{ token }}
+          {{ token.toFixed(2) }}
         </div>
         <div class="ml-4 md:block flex items-center relative">
           <button
@@ -37,7 +37,7 @@
             aria-label="User menu"
             aria-haspopup="true"
           >
-            <div class="px-2.5 text-primary-900 font-bold text-sm">
+            <div class="px-2.5 text-primary-900 font-bold text-sm" >
               {{ user.firstname }} {{ user.lastname }}
             </div>
             <DropdownIcon />
@@ -53,6 +53,7 @@
               aria-labelledby="user-menu"
             >
               <router-link
+                v-if="user.role[0] != 'admin'"
                 :to="{ name: 'accountSetting' }"
                 class="w-full justify-center text-sm font-bold text-shade-black"
               >

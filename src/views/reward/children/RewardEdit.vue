@@ -107,7 +107,7 @@ export default {
     });
     return {
       schema,
-      reward: null,
+      reward: this.$store.getters.getReward,
       img: [],
     };
   },
@@ -154,10 +154,6 @@ export default {
         }
       });
     },
-  },
-  async created() {
-    await RewardServices.getRewardByID(this.$route.params.id);
-    this.reward = this.$store.getters.getReward;
   },
 };
 </script>

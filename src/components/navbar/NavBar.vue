@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-primary-900 p-2" v-if="user && token">
+  <nav class="bg-primary-900 p-2" v-if="user">
     <NavBarDesktop
       :logout="() => logout()"
       :swap="() => swapRole()"
@@ -26,7 +26,7 @@ export default {
   methods: {
     logout() {
       AuthServices.logout();
-      this.$msal.signOut();
+      /*  this.$msal.signOut(); */
     },
     swapRole() {
       AuthServices.swapRole().then((response) => {
@@ -35,7 +35,7 @@ export default {
             this.$router.go();
           });
         } else {
-          this.$router.push({ name: "accountSetting" }).then(() => {
+          this.$router.push({ name: "classroomList" }).then(() => {
             this.$router.go();
           });
         }
