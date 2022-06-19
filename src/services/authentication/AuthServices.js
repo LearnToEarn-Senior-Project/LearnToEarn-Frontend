@@ -55,6 +55,6 @@ export default {
   },
   logout() {
     localStorage.removeItem("user");
-    router.push({ name: "beforeLogin" });
+    router.go();
   },
 };

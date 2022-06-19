@@ -4,7 +4,7 @@
       <router-link
         :to="{ name: 'beforeLogin' }"
         class="text-secondary-500 font-bold text-2xl md:hidden"
-        >LearnToEarn
+        ><img src="@/assets/icons/logo/LTELogo.png" class="h-8" />
       </router-link>
     </div>
     <div @click="menuOpen = !menuOpen" class="hover:cursor-pointer md:hidden">

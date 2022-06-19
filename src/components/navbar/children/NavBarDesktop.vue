@@ -4,7 +4,7 @@
       <router-link
         :to="{ name: 'beforeLogin' }"
         class="text-secondary-500 font-bold text-2xl hidden md:block"
-        >LearnToEarn
+        ><img src="@/assets/icons/logo/LTELogo.png" class="h-8" />
       </router-link>
       <div
         class="flex items-center gap-x-10"
@@ -37,7 +37,7 @@
             aria-label="User menu"
             aria-haspopup="true"
           >
-            <div class="px-2.5 text-primary-900 font-bold text-sm" >
+            <div class="px-2.5 text-primary-900 font-bold text-sm">
               {{ user.firstname }} {{ user.lastname }}
             </div>
             <DropdownIcon />
