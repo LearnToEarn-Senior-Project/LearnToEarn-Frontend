@@ -15,7 +15,7 @@
           }}</span>
         </div>
       </div>
-      <div class="w-1/2 ml-8 truncate">
+      <div class="w-1/2 ml-8">
         <div
           class="font-bold text-[48px] text-center mb-[32px] truncate"
           data-tooltip-target="tooltip-name"
@@ -24,7 +24,7 @@
         </div>
         <div class="mb-4">
           <div class="font-bold text-[20px]">Detail</div>
-          <div class="ml-10">{{ reward.detail }}</div>
+          <div class="ml-10 break-words">{{ reward.detail }}</div>
         </div>
         <div class="text-[20px] flex gap-2">
           <div class="font-bold">Amount:</div>
