@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div>Total Score: 1/2</div>
+    <div>Total Score: {{ currentOverallScore() }} / 100</div>
 
     <div class="text-[32px] text-center font-bold mb-4">Assignment</div>
     <AssignmentCard
@@ -20,8 +20,6 @@
       :assignment="assignment"
       class="mb-4"
     />
-    <!-- {{ classroom.assignment_list }} -->
-    <!--  {{ submission }} -->
   </div>
 </template>
 <script>
@@ -37,6 +35,31 @@ export default {
       submission: null,
       role: null,
     };
+  },
+  methods: {
+    currentOverallScore() {
+      try {
+        let tempScore = 0;
+        let tempTotalScore = 0;
+        for (
+          let index = 0;
+          index < this.classroom.assignment_list.length;
+          index++
+        ) {
+          if (this.classroom.assignment_list[index].max_point == null) {
+            continue;
+          }
+          tempScore =
+            tempScore +
+            this.classroom.assignment_list[index].student_submission[0].score;
+          tempTotalScore =
+            tempTotalScore + this.classroom.assignment_list[index].max_point;
+        }
+        return Math.round((100 * tempScore) / tempTotalScore);
+      } catch (error) {
+        return "-";
+      }
+    },
   },
   created() {
     ClassroomServices.getClassroomById(this.$route.params.id).then(async () => {

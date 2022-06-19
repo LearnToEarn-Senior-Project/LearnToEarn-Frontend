@@ -18,7 +18,7 @@ export default {
       };
     } catch (error) {
       userObject = {
-        id: responseGetData.data.OrganizationID1,
+        id: "teacher_id",
         email: responseGetData.data.Email,
         firstname: responseGetData.data.NameEng,
         lastname: responseGetData.data.MiddleNameEng,
@@ -54,8 +54,7 @@ export default {
     return role.data;
   },
   logout() {
-    localStorage.removeItem("user").then(() => {
-      router.push({ name: "beforeLogin" });
-    });
+    localStorage.removeItem("user");
+    router.push({ name: "beforeLogin" });
   },
 };

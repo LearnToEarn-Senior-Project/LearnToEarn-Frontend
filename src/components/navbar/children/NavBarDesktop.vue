@@ -37,7 +37,7 @@
             aria-label="User menu"
             aria-haspopup="true"
           >
-            <div class="px-2.5 text-primary-900 font-bold text-sm">
+            <div class="px-2.5 text-primary-900 font-bold text-sm" >
               {{ user.firstname }} {{ user.lastname }}
             </div>
             <DropdownIcon />

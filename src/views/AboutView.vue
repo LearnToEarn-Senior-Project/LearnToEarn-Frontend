@@ -1,17 +1,9 @@
 <template>
-  <div class="about p-8">
-    {{ msLogin }}
-    {{ user }}
-  </div>
+  <div class="about p-8">Hi</div>
 </template>
 <script>
-import StudentCard from "@/components/card/StudentCard";
-
 export default {
-  components: {
-    StudentCard,
-  },
-  data() {
+  /*  data() {
     return {
       user: this.$msal.data.accessToken,
       msLogin: this.$msal.isAuthenticated(),
@@ -21,6 +13,6 @@ export default {
     if (this.$msal.isAuthenticated) {
       this.user = await this.$msal.data.graph.profile;
     }
-  },
+  }, */
 };
 </script>

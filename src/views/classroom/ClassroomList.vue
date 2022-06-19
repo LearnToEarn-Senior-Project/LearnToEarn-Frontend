@@ -6,7 +6,7 @@
         v-if="totalClassrooms == 0"
         class="w-full h-full text-center text-error-700 text-[24px]"
       >
-        Please wait for classroom data loading...
+        Please wait for classroom data loading... Or the error has found
       </div>
       <ClassroomCard
         v-for="classroom in classrooms"

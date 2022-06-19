@@ -4,12 +4,12 @@
   >
     <div class="justify-between flex text-[28px]">
       <span class="truncate font-bold">{{ assignment.name }}</span>
-      <span class="text-success-600">-</span>
+      <span class="text-success-600">{{ getState() }}</span>
     </div>
     <div class="justify-between flex text-[16px]">
       <span class="truncate">Due {{ getDate() }}</span>
       <div class="flex items-center gap-[15px]">
-        <span>Score -/{{ assignment.max_point }}</span>
+        <span>Score {{ getScore() }} /{{ assignment.max_point }}</span>
         <span>Token: <span class="text-secondary-600">-</span></span>
       </div>
     </div>
@@ -55,6 +55,26 @@ export default {
         );
       } catch (error) {
         return "date is not defined";
+      }
+    },
+    getState() {
+      try {
+        if (this.assignment.student_submission[0].state == "TURNED_IN") {
+          return "Turned In";
+        } else if (this.assignment.student_submission[0].state == "RETURNED") {
+          return "Returned";
+        } else if (this.assignment.student_submission[0].state == "CREATED") {
+          return "Created";
+        }
+      } catch (error) {
+        return "-";
+      }
+    },
+    getScore() {
+      try {
+        return assignment.student_submission[0].score;
+      } catch (error) {
+        return "-";
       }
     },
   },
