@@ -1,6 +1,6 @@
 <template>
   <div class="px-[128px] py-[64px]" v-if="reward">
-    <div class="flex">
+    <div class="flex flex-wrap">
       <div>
         <img
           v-if="reward.image"
@@ -15,7 +15,7 @@
           }}</span>
         </div>
       </div>
-      <div class="w-full ml-8 truncate">
+      <div class="w-1/2 ml-8 truncate">
         <div
           class="font-bold text-[48px] text-center mb-[32px] truncate"
           data-tooltip-target="tooltip-name"

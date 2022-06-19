@@ -49,8 +49,8 @@ export default {
       this.rewards = this.$store.getters.getRewards.reward_list;
     });
   },
-  beforeRouteUpdate(routeTo) {
-    RewardServices.getRewardsWithPagination(
+  async beforeRouteUpdate(routeTo) {
+    await RewardServices.getRewardsWithPagination(
       parseInt(routeTo.query.page) || 1
     ).then(() => {
       this.rewards = this.$store.getters.getRewards.reward_list;

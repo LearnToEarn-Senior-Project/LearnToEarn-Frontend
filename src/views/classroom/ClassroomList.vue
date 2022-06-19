@@ -6,7 +6,7 @@
         v-if="totalClassrooms == 0"
         class="w-full h-full text-center text-error-700 text-[24px]"
       >
-        Please wait for classroom data loading... Or the error has found
+        {{ text }}
       </div>
       <ClassroomCard
         v-for="classroom in classrooms"
@@ -42,23 +42,29 @@ export default {
       classrooms: null,
       totalClassrooms: 0,
       totalPage: 1,
+      text: null,
     };
   },
   async created() {
+    this.text = "Please wait for classroom data loading...";
     await ClassroomServices.getAllClassroom(this.page).then(() => {
       this.totalClassrooms = this.$store.getters.getClassrooms.total_classrooms;
       if (this.totalClassrooms > 0) {
         this.totalPage = Math.ceil(this.totalClassrooms / 4);
       }
       this.classrooms = this.$store.getters.getClassrooms.classroom_list;
+      if (this.classrooms.length == 0) {
+        this.text =
+          "The classrooms are unavailable. Please connect the Google Account to get the classroom, Or the Google Account must contain more than one classroom.";
+      }
     });
   },
-  beforeRouteUpdate(routeTo) {
-    ClassroomServices.getAllClassroom(parseInt(routeTo.query.page) || 1).then(
-      () => {
-        this.classrooms = this.$store.getters.getClassrooms.classroom_list;
-      }
-    );
+  async beforeRouteUpdate(routeTo) {
+    await ClassroomServices.getAllClassroom(
+      parseInt(routeTo.query.page) || 1
+    ).then(() => {
+      this.classrooms = this.$store.getters.getClassrooms.classroom_list;
+    });
   },
 };
 </script>
