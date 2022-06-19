@@ -61,36 +61,38 @@ export default {
       }
     },
   },
-  created() {
-    ClassroomServices.getClassroomById(this.$route.params.id).then(async () => {
-      this.role = await this.$store.getters.getRole;
-      this.classroom = this.$store.getters.getClassroom;
-      GoogleServices.getGoogleData().then((response) => {
-        for (
-          let i = 0;
-          i < this.$store.getters.getClassroom.assignment_list.length;
-          i++
-        ) {
+  async created() {
+    await ClassroomServices.getClassroomById(this.$route.params.id).then(
+      async () => {
+        this.role = await this.$store.getters.getRole;
+        this.classroom = this.$store.getters.getClassroom;
+        GoogleServices.getGoogleData().then(async (response) => {
           for (
-            let j = 0;
-            j <
-            this.$store.getters.getClassroom.assignment_list[i]
-              .student_submission.length;
-            j++
+            let i = 0;
+            i < this.$store.getters.getClassroom.assignment_list.length;
+            i++
           ) {
-            if (
-              response.data._id ==
+            for (
+              let j = 0;
+              j <
               this.$store.getters.getClassroom.assignment_list[i]
-                .student_submission[j].user_id
+                .student_submission.length;
+              j++
             ) {
-              this.submission =
-                this.$store.getters.getClassroom.student_submission;
-              break;
+              if (
+                response.data._id ==
+                this.$store.getters.getClassroom.assignment_list[i]
+                  .student_submission[j].user_id
+              ) {
+                this.submission =
+                  this.$store.getters.getClassroom.student_submission;
+                break;
+              }
             }
           }
-        }
-      });
-    });
+        });
+      }
+    );
   },
 };
 </script>
