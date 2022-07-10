@@ -7,6 +7,13 @@
           v-if="role.includes('teacher') && role[0] == 'teacher'"
           text="Token Criteria"
           class="text-primary-500 bg-primary-100 hover:bg-primary-300 hover:text-shade-white active:bg-primary-500 active:text-shade-white"
+          :click="
+            () =>
+              $router.push({
+                name: 'classroomCriteria',
+                params: { id: classroom._id },
+              })
+          "
         />
       </div>
     </div>

@@ -61,7 +61,7 @@ const routes = [
   {
     path: "/account_setting",
     name: "accountSetting",
-    component: () => import("../views/AccountSetting.vue"),
+    component: () => import("../views/account/AccountSetting.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -110,7 +110,16 @@ const routes = [
     }),
   },
   /*================ TEACHER ================*/
-
+  {
+    path: "/classroom/:id/criteria",
+    name: "classroomCriteria",
+    component: () =>
+      import("../views/classroom/children/ClassroomCriteria.vue"),
+    meta: {
+      requiresAuth: true,
+      teacherOnly: true,
+    },
+  },
   /*================= ADMIN =================*/
   {
     path: "/adminConsole",

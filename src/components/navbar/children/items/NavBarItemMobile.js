@@ -7,10 +7,6 @@ const navbarItems = [
     title: "Token History",
     pageName: "testComponents",
   },
-  {
-    title: "Account Setting",
-    pageName: "accountSetting",
-  },
 ];
 
 export default navbarItems;
