@@ -3,21 +3,27 @@ import store from "@/store";
 
 export default {
   async getAllClassroom(page) {
-    const getAllClassrooms = await apiClient.get(
-      "/getGoogleClassrooms/" +
-        JSON.parse(localStorage.getItem("user"))._id +
-        "/page=" +
-        page
-    );
-    store.dispatch("setClassrooms", getAllClassrooms.data);
+    await apiClient
+      .get(
+        "/getGoogleClassrooms/" +
+          JSON.parse(localStorage.getItem("user"))._id +
+          "/page=" +
+          page
+      )
+      .then((response) => {
+        store.dispatch("setClassrooms", response.data);
+      });
   },
   async getClassroomById(course_id) {
-    const getClassroom = await apiClient.get(
-      "/getClassroom/" +
-        JSON.parse(localStorage.getItem("user"))._id +
-        "/" +
-        course_id
-    );
-    store.dispatch("setClassroom", getClassroom.data);
+    await apiClient
+      .get(
+        "/getClassroom/" +
+          JSON.parse(localStorage.getItem("user"))._id +
+          "/" +
+          course_id
+      )
+      .then((response) => {
+        store.dispatch("setClassroom", response.data);
+      });
   },
 };

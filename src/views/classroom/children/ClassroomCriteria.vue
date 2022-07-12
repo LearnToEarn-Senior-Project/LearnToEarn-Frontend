@@ -73,7 +73,6 @@ import BaseInput from "@/components/input/BaseInput.vue";
 import ClassroomServices from "@/services/ClassroomServices";
 import CancelButton from "@/components/button/children/CancelButton.vue";
 import SubmitButton from "@/components/button/children/SubmitButton.vue";
-import ClassroomCriteriaItem from "@/views/classroom/children/ClassroomCriteriaItem";
 export default {
   components: {
     Form,
@@ -97,7 +96,6 @@ export default {
       schema,
       CheckedSecond: false,
       classroom: null,
-      ClassroomCriteriaItem,
     };
   },
   created() {

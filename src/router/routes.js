@@ -1,7 +1,7 @@
 import AuthServices from "@/services/authentication/AuthServices.js";
 import router from ".";
 import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
-const routes = [
+export default [
   /*================== ALL ==================*/
   {
     path: "/",
@@ -23,17 +23,6 @@ const routes = [
     name: "OAuthRedirect",
     beforeEnter: (route) => {
       return AuthServices.login(route.query.code);
-    },
-  },
-  {
-    path: "/auth",
-    name: "msOAuth",
-    component: () => import("../views/MsLogin.vue"),
-    meta: {
-      requiresAuth: true,
-    },
-    beforeEnter: () => {
-      AuthServices.MSLogin();
     },
   },
   {
@@ -161,4 +150,3 @@ const routes = [
     },
   },
 ];
-export default routes;

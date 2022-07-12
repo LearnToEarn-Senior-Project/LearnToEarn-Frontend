@@ -1,4 +1,4 @@
-const NavProps = {
+export default {
   logout: {
     type: Function,
     required: true,
@@ -16,5 +16,3 @@ const NavProps = {
     required: true,
   },
 };
-
-export default NavProps;

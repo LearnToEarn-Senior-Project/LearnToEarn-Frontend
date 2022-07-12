@@ -3,16 +3,5 @@
 </template>
 <script>
 export default {
-  /*  data() {
-    return {
-      user: this.$msal.data.accessToken,
-      msLogin: this.$msal.isAuthenticated(),
-    };
-  },
-  async created() {
-    if (this.$msal.isAuthenticated) {
-      this.user = await this.$msal.data.graph.profile;
-    }
-  }, */
 };
 </script>

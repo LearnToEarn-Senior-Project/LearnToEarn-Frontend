@@ -6,10 +6,7 @@
         class="text-secondary-500 font-bold text-2xl hidden md:block"
         ><img src="@/assets/icons/logo/LTELogo.png" class="h-8" />
       </router-link>
-      <div
-        class="flex items-center gap-x-10"
-        v-if="user.role.includes('student') && user.role[0] == 'student'"
-      >
+      <div class="flex items-center gap-x-10" v-if="isCurrentStudent">
         <router-link
           v-for="item in NavBarItems"
           :key="item.id"
@@ -25,7 +22,7 @@
       <div class="flex items-center gap-x-6">
         <div
           class="flex items-center gap-x-2.5 text-shade-white font-bold text-sm"
-          v-if="user.role.includes('student') && user.role[0] == 'student'"
+          v-if="isCurrentStudent"
         >
           <Coin />
           {{ token.toFixed(2) }}
@@ -44,55 +41,43 @@
           </button>
           <div
             id="user-menu-dropdown"
-            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md z-40"
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md z-40 py-1 rounded-md text-center bg-shade-white shadow-xs border-2 border-neutral-400"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="user-menu"
           >
-            <div
-              class="py-1 rounded-md text-center bg-shade-white shadow-xs border-2 border-neutral-400"
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="user-menu"
+            <router-link
+              v-if="isNotAdmin"
+              :to="{ name: 'accountSetting' }"
+              class="w-full justify-center text-sm font-bold text-shade-black"
             >
-              <router-link
-                v-if="user.role[0] != 'admin'"
-                :to="{ name: 'accountSetting' }"
-                class="w-full justify-center text-sm font-bold text-shade-black"
-              >
-                <div class="hover:bg-neutral-100 py-2">Account Setting</div>
-              </router-link>
-              <router-link
-                v-if="user.role.includes('admin') && user.role[0] != 'admin'"
-                :to="{ name: 'adminConsole' }"
-                class="w-full justify-center text-sm font-bold text-shade-black"
-              >
-                <div class="hover:bg-neutral-100 py-2" @click="swap">
-                  Go to Admin Console
-                </div>
-              </router-link>
-              <router-link
-                v-if="user.role.includes('admin') && user.role[1] == 'student'"
-                :to="{ name: 'rewardList' }"
-                class="w-full justify-center text-sm font-bold text-shade-black"
-              >
-                <div class="hover:bg-neutral-100 py-2" @click="swap">
-                  Go to student site
-                </div>
-              </router-link>
-              <router-link
-                v-if="user.role.includes('admin') && user.role[1] == 'teacher'"
-                :to="{ name: 'rewardList' }"
-                class="w-full justify-center text-sm font-bold text-shade-black"
-              >
-                <div class="hover:bg-neutral-100 py-2" @click="swap">
-                  Go to teacher site
-                </div>
-              </router-link>
-              <button
-                class="w-full justify-center py-2 text-sm font-bold text-shade-black hover:bg-neutral-100"
-                @click="logout"
-              >
-                Logout
-              </button>
-            </div>
+              <div class="hover:bg-neutral-100 py-2">Account Setting</div>
+            </router-link>
+            <router-link
+              v-if="user.role.includes('admin')"
+              :to="
+                isNotAdmin
+                  ? { name: 'adminConsole' }
+                  : isStudent
+                  ? { name: 'rewardList' }
+                  : isTeacher
+                  ? { name: 'rewardList' }
+                  : null
+              "
+              class="w-full justify-center text-sm font-bold text-shade-black"
+            >
+              <div class="hover:bg-neutral-100 py-2" @click="swap">
+                <span v-if="isNotAdmin">Go to Admin Console</span>
+                <span v-if="isStudent">Go to student site</span>
+                <span v-if="isTeacher">Go to teacher site</span>
+              </div>
+            </router-link>
+            <button
+              class="w-full justify-center py-2 text-sm font-bold text-shade-black hover:bg-neutral-100"
+              @click="logout"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
@@ -112,38 +97,13 @@ export default {
   data() {
     return {
       NavBarItems: NavBarItem,
+      isNotAdmin: this.user.role[0] != "admin",
+      isStudent: this.user.role[1] == "student",
+      isTeacher: this.user.role[1] == "teacher",
+      isCurrentStudent:
+        this.user.role.includes("student") && this.user.role[0] == "student",
     };
   },
   props: NavBarProps,
 };
 </script>
-
-<style scoped>
-#user-menu ~ #user-menu-dropdown {
-  --transform-translate-x: 0;
-  --transform-translate-y: 0;
-  --transform-rotate: 0;
-  --transform-skew-x: 0;
-  --transform-skew-y: 0;
-  --transform-scale-x: 1;
-  --transform-scale-y: 1;
-  transform: translateX(var(--transform-translate-x))
-    translateY(var(--transform-translate-y)) rotate(var(--transform-rotate))
-    skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y))
-    scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
-  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  transition-duration: 75ms;
-  opacity: 0;
-  --transform-scale-x: 0;
-  --transform-scale-y: 0;
-}
-
-#user-menu ~ #user-menu-dropdown:focus-within,
-#user-menu:focus ~ #user-menu-dropdown {
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  transition-duration: 100ms;
-  opacity: 1;
-  --transform-scale-x: 1;
-  --transform-scale-y: 1;
-}
-</style>

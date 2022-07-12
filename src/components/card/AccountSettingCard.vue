@@ -1,33 +1,28 @@
 <template>
   <div
-    class="border-[1px] border-neutral-400 px-8 py-2 flex items-center justify-between rounded-[10px] mb-8"
+    class="border-[1px] border-neutral-400 px-8 py-2 flex items-center justify-between rounded-[10px] mb-4"
   >
     <div class="flex items-center justify-between">
       <img
-        v-if="auth"
-        :src="img"
+        :src="isAuth ? img : require(`@/assets/icons/logo/${img}`)"
         class="w-[72px] h-[72px] rounded-full border-[1px] border-neutral-400 mr-8"
       />
-      <img
-        v-else
-        :src="require(`@/assets/icons/logo/${img}`)"
-        class="w-[72px] h-[72px] rounded-full border-[1px] border-neutral-400 mr-8"
-      />
-      <div class="grid items-center" v-if="auth">
-        <div class="text-[32px] font-bold">{{ name }}</div>
-        <div class="text-[16px]">
-          {{ description }}
+      <div class="grid items-center">
+        <div class="text-[32px] font-bold">
+          {{ name }} <span v-if="!isAuth"> Account</span>
         </div>
-      </div>
-      <div class="grid items-center" v-else>
-        <div class="text-[32px] font-bold">{{ name }} Account</div>
         <div class="text-[16px]">
-          Bind the {{ name }} Account to get the {{ description }} Data
+          <span v-if="!isAuth"> Bind the {{ name }} Account to get the</span>
+          {{ description }}
+          <span v-if="!isAuth"> Data</span>
         </div>
       </div>
     </div>
-    <SubmitButton v-if="!auth" text="Bind" :click="bind" />
-    <CancelButton v-else text="Unbind" :click="unbind" />
+    <component
+      :is="isAuth ? 'CancelButton' : 'SubmitButton'"
+      :text="isAuth ? 'Unbind' : 'Bind'"
+      :click="isAuth ? unbind : bind"
+    />
   </div>
 </template>
 <script>
@@ -51,7 +46,7 @@ export default {
     unbind: {
       type: Function,
     },
-    auth: {
+    isAuth: {
       type: Boolean,
     },
   },

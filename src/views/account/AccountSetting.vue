@@ -1,7 +1,7 @@
 <template>
-  <span class="justify-center flex font-bold text-[48px] my-8"
-    >Account Setting</span
-  >
+  <span class="justify-center flex font-bold text-[48px] my-8">
+    Account Setting
+  </span>
   <div class="mx-12">
     <div v-for="(items, index) in user" :key="items">
       <AccountSettingCard
@@ -9,7 +9,7 @@
         class="w-full"
         :name="items.firstname + ' ' + items.lastname"
         :img="items.image_url"
-        :auth="true"
+        :isAuth="true"
         :unbind="unbind[index]"
         :description="items.email"
       />
@@ -20,7 +20,7 @@
         class="w-full"
         :name="items.name"
         :img="items.img"
-        :auth="false"
+        :isAuth="false"
         :bind="bind[index]"
         :description="items.description"
       />

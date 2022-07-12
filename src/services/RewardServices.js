@@ -21,12 +21,14 @@ export default {
     });
   },
   async getRewardsWithPagination(page) {
-    const getAllRewards = await apiClient.get("/rewards/page=" + page);
-    store.dispatch("setRewards", getAllRewards.data);
+    await apiClient.get("/rewards/page=" + page).then((response) => {
+      store.dispatch("setRewards", response.data);
+    });
   },
   async getRewardByID(id) {
-    const getRewardByID = await apiClient.get("/reward/" + id);
-    store.dispatch("setReward", getRewardByID.data[0]);
+    await apiClient.get("/reward/" + id).then((response) => {
+      store.dispatch("setReward", response.data[0]);
+    });
   },
   async updateRewardByID(id, name, detail, amount, price, image) {
     return apiClient.patch("/updateReward/" + id, {

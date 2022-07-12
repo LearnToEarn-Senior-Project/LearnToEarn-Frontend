@@ -9,13 +9,7 @@
   >
     <div class="w-[195px] h-[175px] flex justify-end rounded-t-[10px]">
       <img
-        v-if="reward.image"
-        :src="reward.image"
-        class="object-cover w-full rounded-t-[10px] bg-secondary-100"
-      />
-      <img
-        v-else
-        src="@/assets/reward.png"
+        :src="reward.image ? reward.image : require(`@/assets/reward.png`)"
         class="object-cover w-full rounded-t-[10px] bg-secondary-100"
       />
       <div

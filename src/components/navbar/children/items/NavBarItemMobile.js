@@ -1,4 +1,4 @@
-const navbarItems = [
+export default [
   {
     title: "Reward Shop",
     pageName: "rewardList",
@@ -8,5 +8,3 @@ const navbarItems = [
     pageName: "testComponents",
   },
 ];
-
-export default navbarItems;
