@@ -1,4 +1,5 @@
 import apiClient from "@/services/axios/AxiosClient.js";
+import Swal from "sweetalert2";
 import router from "@/router";
 
 export default {
@@ -31,10 +32,32 @@ export default {
       .get("/getUser/" + userObject.id)
       .then(async (responseUser) => {
         if (responseUser.data.length == 0) {
-          await apiClient.post("/addUser", userObject);
-          responseUser = await apiClient.get("/getUser/" + userObject.id);
+          await Swal.fire({
+            title: "Terms and conditions",
+            input: "checkbox",
+            showCancelButton: true,
+            inputValue: 1,
+            inputPlaceholder:
+              "I agree with the <a href='http://localhost:3000/terms_and_conditions' target='_blank'><u>terms and conditions</u></a>",
+            confirmButtonText: "Accept",
+            inputValidator: (result) => {
+              return !result && "You need to agree with T&C";
+            },
+          }).then(async (response) => {
+            if (response.isConfirmed) {
+              await apiClient.post("/addUser", userObject);
+              responseUser = await apiClient.get("/getUser/" + userObject.id);
+              localStorage.setItem(
+                "user",
+                JSON.stringify(responseUser.data[0])
+              );
+            } else {
+              router.push({ name: "beforeLogin" });
+            }
+          });
+        } else {
+          localStorage.setItem("user", JSON.stringify(responseUser.data[0]));
         }
-        localStorage.setItem("user", JSON.stringify(responseUser.data[0]));
       });
     setTimeout(() => {
       window.location.href = "http://localhost:3000/";

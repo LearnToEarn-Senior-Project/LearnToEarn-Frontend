@@ -26,6 +26,11 @@ export default [
     },
   },
   {
+    path: "/terms_and_conditions",
+    name: "termAndConditions",
+    component: () => import("../views/TermsAndConditions.vue"),
+  },
+  {
     path: "/test_component",
     name: "testComponents",
     component: () => import("../views/AboutView.vue"),

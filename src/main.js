@@ -21,6 +21,7 @@ const gauthOption = {
     "726873603726-tq3t7s31jodv5qcu335dpn8beln6oise.apps.googleusercontent.com",
   prompt: "consent",
   plugin_name: "chat",
+  scope:'profile email https://www.googleapis.com/auth/classroom.student-submissions.students.readonly https://www.googleapis.com/auth/classroom.student-submissions.me.readonly https://www.googleapis.com/auth/classroom.courses.readonly https://www.googleapis.com/auth/classroom.rosters.readonly'
 };
 createApp(App)
   .use(store)

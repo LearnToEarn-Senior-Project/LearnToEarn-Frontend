@@ -1,4 +1,10 @@
 <template>
+  <div
+    v-if="!classroom"
+    class="w-full h-full text-center text-error-700 text-[24px] p-8"
+  >
+    {{ text }}
+  </div>
   <div class="p-8" v-if="classroom">
     <div class="flex items-center justify-between">
       <span class="font-bold text-[48px] truncate">{{ classroom.name }}</span>
@@ -41,6 +47,7 @@ export default {
       classroom: null,
       submission: null,
       role: null,
+      text: null,
     };
   },
   methods: {
@@ -69,37 +76,39 @@ export default {
     },
   },
   async created() {
-    await ClassroomServices.getClassroomById(this.$route.params.id).then(
-      async () => {
-        this.role = await this.$store.getters.getRole;
-        this.classroom = this.$store.getters.getClassroom;
-        GoogleServices.getGoogleData().then(async (response) => {
+    this.text = "Please wait for data loading...";
+    await ClassroomServices.getClassroomWithAssignment(
+      this.$route.params.id
+    ).then(async () => {
+      this.role = await this.$store.getters.getRole;
+      this.classroom = this.$store.getters.getClassroomWithAssignment;
+      GoogleServices.getGoogleData().then(async (response) => {
+        for (
+          let i = 0;
+          i <
+          this.$store.getters.getClassroomWithAssignment.assignment_list.length;
+          i++
+        ) {
           for (
-            let i = 0;
-            i < this.$store.getters.getClassroom.assignment_list.length;
-            i++
+            let j = 0;
+            j <
+            this.$store.getters.getClassroomWithAssignment.assignment_list[i]
+              .student_submission.length;
+            j++
           ) {
-            for (
-              let j = 0;
-              j <
-              this.$store.getters.getClassroom.assignment_list[i]
-                .student_submission.length;
-              j++
+            if (
+              response.data._id ==
+              this.$store.getters.getClassroomWithAssignment.assignment_list[i]
+                .student_submission[j].user_id
             ) {
-              if (
-                response.data._id ==
-                this.$store.getters.getClassroom.assignment_list[i]
-                  .student_submission[j].user_id
-              ) {
-                this.submission =
-                  this.$store.getters.getClassroom.student_submission;
-                break;
-              }
+              this.submission =
+                this.$store.getters.getClassroomWithAssignment.student_submission;
+              break;
             }
           }
-        });
-      }
-    );
+        }
+      });
+    });
   },
 };
 </script>

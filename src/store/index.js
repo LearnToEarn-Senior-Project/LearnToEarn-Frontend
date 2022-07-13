@@ -6,9 +6,11 @@ export default createStore({
     role: null,
     reward: null,
     rewards: null,
+    criteria: null,
     classroom: null,
     classrooms: null,
     currentToken: null,
+    classroomWithAssignment: null,
   },
   getters: {
     getCurrentUser(state) {
@@ -23,6 +25,9 @@ export default createStore({
     getRewards(state) {
       return state.rewards;
     },
+    getCriteria(state) {
+      return state.criteria;
+    },
     getClassroom(state) {
       return state.classroom;
     },
@@ -31,6 +36,9 @@ export default createStore({
     },
     getCurrentToken(state) {
       return state.currentToken;
+    },
+    getClassroomWithAssignment(state) {
+      return state.classroomWithAssignment;
     },
   },
   mutations: {
@@ -43,6 +51,9 @@ export default createStore({
     setReward(state, value) {
       state.reward = value;
     },
+    setCriteria(state, value) {
+      state.criteria = value;
+    },
     setRewards(state, value) {
       state.rewards = value;
     },
@@ -54,6 +65,9 @@ export default createStore({
     },
     setCurrentToken(state, value) {
       state.currentToken = value;
+    },
+    setClassroomWithAssignment(state, value) {
+      state.classroomWithAssignment = value;
     },
   },
   actions: {
@@ -69,6 +83,9 @@ export default createStore({
     setRewards(context, value) {
       context.commit("setRewards", value);
     },
+    setCriteria(context, value) {
+      context.commit("setCriteria", value);
+    },
     setClassroom(context, value) {
       context.commit("setClassroom", value);
     },
@@ -77,6 +94,9 @@ export default createStore({
     },
     setCurrentToken(context, value) {
       context.commit("setCurrentToken", value);
+    },
+    setClassroomWithAssignment(context, value) {
+      context.commit("setClassroomWithAssignment", value);
     },
   },
 });
