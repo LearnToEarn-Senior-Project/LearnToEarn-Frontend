@@ -92,7 +92,7 @@ export default [
 
   /*================ STUDENT ================*/
   {
-    path: "/rewardShop",
+    path: "/reward_shop",
     name: "rewardList",
     component: () => import("../views/reward/RewardList.vue"),
     meta: {
@@ -102,6 +102,28 @@ export default [
     props: (route) => ({
       page: parseInt(route.query.page) || 1,
     }),
+  },
+  {
+    path: "/token_history",
+    name: "tokenHistory",
+    component: () =>
+      import("../views/user/students/TokenTransactionHistory.vue"),
+    meta: {
+      requiresAuth: true,
+      studentOnly: true,
+    },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
+  },
+  {
+    path: "/success/wql:transaction_id+w:reward_id",
+    name: "purchaseSuccess",
+    component: () => import("../views/user/students/PurchaseSuccess.vue"),
+    meta: {
+      requiresAuth: true,
+      studentOnly: true,
+    },
   },
   /*================ TEACHER ================*/
   {
@@ -116,7 +138,7 @@ export default [
   },
   /*================= ADMIN =================*/
   {
-    path: "/adminConsole",
+    path: "/admin_console",
     name: "adminConsole",
     component: () => import("../views/user/admin/AdminRewardList.vue"),
     meta: {
@@ -128,7 +150,7 @@ export default [
     }),
   },
   {
-    path: "/addRewards",
+    path: "/add_reward",
     name: "addReward",
     component: () => import("../views/reward/AddReward.vue"),
     meta: {
@@ -146,7 +168,7 @@ export default [
     },
   },
   {
-    path: "/addToken",
+    path: "/add_token",
     name: "addToken",
     component: () => import("../views/user/admin/TokenManagement.vue"),
     meta: {

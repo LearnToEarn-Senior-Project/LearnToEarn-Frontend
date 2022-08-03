@@ -44,7 +44,7 @@ router.beforeEach(async (to, from, next) => {
           next({ name: "accountSetting" });
         }
       } else if (to.matched.some((record) => record.meta.adminAndStudent)) {
-        if (role.includes("admin") && role.includes("student")) {
+        if (role.includes("admin") || role.includes("student")) {
           next();
         } else {
           next({ name: "accountSetting" });

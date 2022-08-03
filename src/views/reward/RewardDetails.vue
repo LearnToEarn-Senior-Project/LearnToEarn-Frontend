@@ -40,7 +40,8 @@
         text="Purchase"
         class="w-full"
         v-if="role[0] == 'student'"
-        :click="maintain"
+        :disabled="token < reward.price || Number(reward.amount) <= 0"
+        :click="buy"
       />
       <SubmitButton
         text="Edit"
@@ -78,6 +79,8 @@ export default {
     return {
       role: null,
       reward: null,
+      token: 0,
+      transactionId: null,
     };
   },
   methods: {
@@ -107,18 +110,41 @@ export default {
         }
       });
     },
-    maintain() {
+    buy() {
       showAlert(
-        "Maintain",
-        "This feature is not available at now!!",
-        "",
         "confirm",
-        false
-      );
+        "Purchase Confirmation",
+        `Do you want to purchase '${this.reward.name}' for ${this.reward.price} token?`,
+        "purchase"
+      ).then((response) => {
+        if (response.isConfirmed) {
+          RewardServices.buy(this.reward).then(() => {
+            this.transactionId = this.$store.getters.getTransactionId;
+            showAlert(
+              "success",
+              "Purchase Success!!",
+              "",
+              "confirm",
+              false
+            ).then((response) => {
+              if (response.isConfirmed) {
+                this.$router.push({
+                  name: "purchaseSuccess",
+                  params: {
+                    transaction_id: this.transactionId,
+                    reward_id: this.reward._id,
+                  },
+                });
+              }
+            });
+          });
+        }
+      });
     },
   },
   async created() {
     this.role = await this.$store.getters.getRole;
+    this.token = await this.$store.getters.getCurrentToken;
     RewardServices.getRewardByID(this.$route.params.id).then(() => {
       this.reward = this.$store.getters.getReward;
     });

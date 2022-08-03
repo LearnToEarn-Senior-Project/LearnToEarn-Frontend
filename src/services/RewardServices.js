@@ -1,5 +1,6 @@
 import apiClient from "@/services/axios/AxiosClient.js";
 import store from "@/store";
+import CryptoJS from "crypto-js";
 
 export default {
   addReward(name, detail, amount, price, image) {
@@ -26,12 +27,12 @@ export default {
     });
   },
   async getRewardByID(id) {
-    await apiClient.get("/reward/" + id).then((response) => {
+    await apiClient.get(`/reward/${id}`).then((response) => {
       store.dispatch("setReward", response.data[0]);
     });
   },
   async updateRewardByID(id, name, detail, amount, price, image) {
-    return apiClient.patch("/updateReward/" + id, {
+    return apiClient.patch(`/updateReward/${id}`, {
       name: name,
       detail: detail,
       amount: amount,
@@ -40,6 +41,19 @@ export default {
     });
   },
   async deleteRewardByID(id) {
-    await apiClient.delete("/deleteReward/" + id);
+    await apiClient.delete(`/deleteReward/${id}`);
+  },
+  async buy(reward) {
+    await apiClient
+      .patch(
+        `/buyReward/${CryptoJS.AES.decrypt(
+          localStorage.getItem("user"),
+          "uwvuvvwevwewvwe onyetenyevwe"
+        ).toString(CryptoJS.enc.Utf8)}`,
+        reward
+      )
+      .then((response) => {
+        store.dispatch("setTransactionId", response.data._id);
+      });
   },
 };

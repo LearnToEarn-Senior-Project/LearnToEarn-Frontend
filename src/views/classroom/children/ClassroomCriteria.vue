@@ -1,9 +1,9 @@
 <template>
   <div class="p-8" v-if="classroom && criteria">
     <div class="flex items-center justify-between">
-      <span class="font-bold text-[48px] truncate"
-        >"{{ classroom.name }}" Token Criteria</span
-      >
+      <span class="font-bold text-[48px] truncate">
+        "{{ classroom.name }}" Token Criteria
+      </span>
     </div>
     <Form @submit="AddCriteria" class="grid gap-y-4 mt-8">
       <div class="flex items-center">
@@ -108,6 +108,9 @@ export default {
         },
         third: this.criteria.third,
       };
+      if (criteriaObject.second.value == false) {
+        criteriaObject.second.count = null;
+      }
       if (
         criteriaObject.second.value == true &&
         (criteriaObject.second.count <= 0 || this.criteria.second.count == null)

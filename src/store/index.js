@@ -1,8 +1,15 @@
 import { createStore } from "vuex";
+import apiClient from "@/services/axios/AxiosClient.js";
+import CryptoJS from "crypto-js";
 
 export default createStore({
   state: {
-    currentUser: JSON.parse(localStorage.getItem("user")),
+    currentUser: apiClient.get(
+      `/getUser/${CryptoJS.AES.decrypt(
+        localStorage.getItem("user"),
+        "uwvuvvwevwewvwe onyetenyevwe"
+      ).toString(CryptoJS.enc.Utf8)}`
+    ),
     role: null,
     reward: null,
     rewards: null,
@@ -10,6 +17,9 @@ export default createStore({
     classroom: null,
     classrooms: null,
     currentToken: null,
+    tokenHistory: null,
+    tokenHistories: null,
+    transactionId: null,
     classroomWithAssignment: null,
   },
   getters: {
@@ -36,6 +46,15 @@ export default createStore({
     },
     getCurrentToken(state) {
       return state.currentToken;
+    },
+    getTokenHistory(state) {
+      return state.tokenHistory;
+    },
+    getTokenHistories(state) {
+      return state.tokenHistories;
+    },
+    getTransactionId(state) {
+      return state.transactionId;
     },
     getClassroomWithAssignment(state) {
       return state.classroomWithAssignment;
@@ -66,6 +85,15 @@ export default createStore({
     setCurrentToken(state, value) {
       state.currentToken = value;
     },
+    setTokenHistory(state, value) {
+      state.tokenHistory = value;
+    },
+    setTokenHistories(state, value) {
+      state.tokenHistories = value;
+    },
+    setTransactionId(state, value) {
+      state.transactionId = value;
+    },
     setClassroomWithAssignment(state, value) {
       state.classroomWithAssignment = value;
     },
@@ -94,6 +122,15 @@ export default createStore({
     },
     setCurrentToken(context, value) {
       context.commit("setCurrentToken", value);
+    },
+    setTokenHistory(context, value) {
+      context.commit("setTokenHistory", value);
+    },
+    setTokenHistories(context, value) {
+      context.commit("setTokenHistories", value);
+    },
+    setTransactionId(context, value) {
+      context.commit("setTransactionId", value);
     },
     setClassroomWithAssignment(context, value) {
       context.commit("setClassroomWithAssignment", value);
