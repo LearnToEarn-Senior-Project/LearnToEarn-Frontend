@@ -81,13 +81,15 @@ export default {
     return {
       rewards: null,
       totalRewards: 0,
-      totalPage: 0,
+      totalPage: 1,
     };
   },
   async created() {
     await RewardServices.getRewardsWithPagination(this.page).then(() => {
       this.totalRewards = this.$store.getters.getRewards.total_rewards;
-      this.totalPage = Math.ceil(this.totalRewards / 10);
+      if (this.totalRewards > 0) {
+        this.totalPage = Math.ceil(this.totalRewards / 10);
+      }
       this.rewards = this.$store.getters.getRewards.reward_list;
     });
   },

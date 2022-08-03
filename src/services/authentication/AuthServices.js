@@ -1,13 +1,14 @@
 import apiClient from "@/services/axios/AxiosClient.js";
 import Swal from "sweetalert2";
 import router from "@/router";
+import CryptoJS from "crypto-js";
 
 export default {
   async login(code) {
     let userObject = null;
-    await apiClient.post("/login/" + code).then(async (responseToken) => {
+    await apiClient.post(`/login/${code}`).then(async (responseToken) => {
       await apiClient
-        .get("/credentials/" + responseToken.data.access_token)
+        .get(`/credentials/${responseToken.data.access_token}`)
         .then((responseData) => {
           try {
             userObject = {
@@ -29,7 +30,7 @@ export default {
         });
     });
     await apiClient
-      .get("/getUser/" + userObject.id)
+      .get(`/getUser/${userObject.id}`)
       .then(async (responseUser) => {
         if (responseUser.data.length == 0) {
           await Swal.fire({
@@ -46,17 +47,23 @@ export default {
           }).then(async (response) => {
             if (response.isConfirmed) {
               await apiClient.post("/addUser", userObject);
-              responseUser = await apiClient.get("/getUser/" + userObject.id);
-              localStorage.setItem(
-                "user",
-                JSON.stringify(responseUser.data[0])
-              );
+              responseUser = await apiClient.get(`/getUser/${userObject.id}`);
+              var secretItem = CryptoJS.AES.encrypt(
+                responseUser.data[0]["_id"],
+                "uwvuvvwevwewvwe onyetenyevwe"
+              ).toString();
+              localStorage.setItem("user", secretItem);
             } else {
               router.push({ name: "beforeLogin" });
             }
           });
         } else {
-          localStorage.setItem("user", JSON.stringify(responseUser.data[0]));
+          var secretItem = CryptoJS.AES.encrypt(
+            responseUser.data[0]["_id"],
+            "uwvuvvwevwewvwe onyetenyevwe"
+          ).toString();
+          localStorage.setItem("user", secretItem);
+          console.log(localStorage.getItem("user"));
         }
       });
     setTimeout(() => {
@@ -65,13 +72,19 @@ export default {
   },
   async getRole() {
     let role = await apiClient.get(
-      "/getRole/" + JSON.parse(localStorage.getItem("user"))._id
+      `/getRole/${CryptoJS.AES.decrypt(
+        localStorage.getItem("user"),
+        "uwvuvvwevwewvwe onyetenyevwe"
+      ).toString(CryptoJS.enc.Utf8)}`
     );
     return role.data;
   },
   async swapRole() {
     let role = await apiClient.get(
-      "/swapRole/" + JSON.parse(localStorage.getItem("user"))._id
+      `/swapRole/${CryptoJS.AES.decrypt(
+        localStorage.getItem("user"),
+        "uwvuvvwevwewvwe onyetenyevwe"
+      ).toString(CryptoJS.enc.Utf8)}`
     );
     return role.data;
   },

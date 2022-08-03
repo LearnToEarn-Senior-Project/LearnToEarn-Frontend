@@ -48,10 +48,16 @@ export default {
     };
   },
   async created() {
+    var firstname = "";
+    var lastname = "";
+    Promise.resolve(this.$store.getters.getCurrentUser).then((response) => {
+      firstname = response.data.firstname;
+      lastname = response.data.lastname;
+    });
     this.token = await this.$store.getters.getCurrentToken;
     this.user = {
-      firstname: this.$store.getters.getCurrentUser.firstname,
-      lastname: this.$store.getters.getCurrentUser.lastname,
+      firstname: firstname,
+      lastname: lastname,
       role: await this.$store.getters.getRole,
     };
   },

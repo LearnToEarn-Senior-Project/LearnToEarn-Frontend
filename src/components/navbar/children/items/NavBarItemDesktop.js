@@ -5,6 +5,6 @@ export default [
   },
   {
     title: "Token History",
-    pageName: "testComponents",
+    pageName: "tokenHistory",
   },
 ];
