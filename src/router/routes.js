@@ -176,4 +176,16 @@ export default [
       adminOnly: true,
     },
   },
+  {
+    path: "/bill_approval",
+    name: "billApproval",
+    component: () => import("../views/user/admin/BillApproval.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
+    },
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+    }),
+  },
 ];

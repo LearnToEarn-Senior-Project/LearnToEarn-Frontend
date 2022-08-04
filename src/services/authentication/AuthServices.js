@@ -49,7 +49,7 @@ export default {
               await apiClient.post("/addUser", userObject);
               responseUser = await apiClient.get(`/getUser/${userObject.id}`);
               var secretItem = CryptoJS.AES.encrypt(
-                responseUser.data[0]["_id"],
+                responseUser.data["_id"],
                 "uwvuvvwevwewvwe onyetenyevwe"
               ).toString();
               localStorage.setItem("user", secretItem);
@@ -58,8 +58,9 @@ export default {
             }
           });
         } else {
+          console.log(responseUser);
           var secretItem = CryptoJS.AES.encrypt(
-            responseUser.data[0]["_id"],
+            responseUser.data["_id"],
             "uwvuvvwevwewvwe onyetenyevwe"
           ).toString();
           localStorage.setItem("user", secretItem);

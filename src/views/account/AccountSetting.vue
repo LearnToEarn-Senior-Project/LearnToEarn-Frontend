@@ -65,18 +65,29 @@ export default {
         "Confirm"
       ).then((response) => {
         if (response.isConfirmed) {
-          showAlert(
-            "success",
-            "Disconnect the Google Account successfully!!!",
-            "",
-            "Confirm",
-            false
-          ).then((response) => {
-            if (response.isConfirmed) {
-              this.$gAuth.signOut();
-              GoogleServices.unbindGoogleAccount();
-              this.$router.go();
-            }
+          this.$gAuth.signOut();
+          GoogleServices.unbindGoogleAccount().then(() => {
+            showAlert(
+              "success",
+              "Disconnect the Google Account successfully!!!",
+              "",
+              "Confirm",
+              false
+            )
+              .then((response) => {
+                if (response.isConfirmed) {
+                  this.$router.go();
+                }
+              })
+              .catch(() => {
+                showAlert(
+                  "error",
+                  "Cannot disconnect this account",
+                  "Found the unexpected problem please try again later",
+                  "Confirm",
+                  false
+                );
+              });
           });
         }
       });

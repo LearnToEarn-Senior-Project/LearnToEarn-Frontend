@@ -87,25 +87,33 @@ export default {
     deleteReward() {
       showAlert(
         "confirm",
-        "Do you want to delete this reward",
+        "Do you want to delete this reward?",
         "",
         "Confirm"
       ).then((response) => {
         if (response.isConfirmed) {
-          showAlert(
-            "success",
-            "Delete this reward successfully",
-            "",
-            "Confirm",
-            false
-          ).then((response) => {
-            if (response.isConfirmed) {
-              RewardServices.deleteRewardByID(this.$route.params.id).then(
-                () => {
+          RewardServices.deleteRewardByID(this.$route.params.id).then(() => {
+            showAlert(
+              "success",
+              "Delete this reward successfully",
+              "",
+              "Confirm",
+              false
+            )
+              .then((response) => {
+                if (response.isConfirmed) {
                   this.$router.go(-1);
                 }
-              );
-            }
+              })
+              .catch(() => {
+                showAlert(
+                  "error",
+                  "Cannot delete this reward",
+                  "Found the unexpected problem please try again later",
+                  "Confirm",
+                  false
+                );
+              });
           });
         }
       });

@@ -1,7 +1,7 @@
 import apiClient from "@/services/axios/AxiosClient.js";
 import store from "@/store";
 import CryptoJS from "crypto-js";
-import axios from "axios";
+
 export default {
   async getStudentToken() {
     let studentCurrentToken = await apiClient.get(
@@ -19,17 +19,32 @@ export default {
     let allToken = await apiClient.get("/getAllToken");
     return allToken.data;
   },
-  async getAllTokenHistory(page) {
+  async getAllTokenHistory(page, bool) {
     await apiClient
       .get(
         `/getAllTokenHistory/${CryptoJS.AES.decrypt(
           localStorage.getItem("user"),
           "uwvuvvwevwewvwe onyetenyevwe"
-        ).toString(CryptoJS.enc.Utf8)}/page=${page}`
+        ).toString(CryptoJS.enc.Utf8)}/page=${page}/bool=${bool}`
       )
       .then((response) => {
         store.dispatch("setTokenHistories", response.data);
       });
+  },
+  async getAllTokenHistorySearch(user_id, page, bool) {
+    await apiClient
+      .get(`/getAllTokenHistory/${user_id}/page=${page}/bool=${bool}`)
+      .then((response) => {
+        store.dispatch("setTokenHistories", response.data);
+      });
+  },
+  async getAllTokenHistoryForAdmin(page) {
+    await apiClient.get(`/getAllTokenHistory/page=${page}`).then((response) => {
+      store.dispatch("setTokenHistories", response.data);
+    });
+  },
+  async approveBill(transaction_id) {
+    await apiClient.patch(`/approveBill/${transaction_id}`);
   },
   async getBillImage(transaction_id, reward_id) {
     await apiClient

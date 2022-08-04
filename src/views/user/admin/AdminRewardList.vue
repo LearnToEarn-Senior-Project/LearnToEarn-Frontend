@@ -14,6 +14,10 @@
           class="bg-success-700 hover:bg-success-800 active:bg-success-900"
           :click="() => this.$router.push({ name: 'addReward' })"
         />
+        <SubmitButton
+          text="Bill Approval"
+          :click="() => this.$router.push({ name: 'billApproval' })"
+        />
       </div>
     </div>
     <table>
@@ -26,7 +30,7 @@
           <th class="w-1/6">Image</th>
         </tr>
       </thead>
-      <tbody class="text-center">
+      <tbody class="text-center" v-if="rewards.length > 0">
         <tr v-for="(reward, index) in rewards" :key="index">
           <td class="text-[28px] font-bold py-2">{{ index + 1 }}</td>
           <td>{{ reward.name }}</td>
@@ -57,6 +61,11 @@
             />
           </td>
         </tr>
+      </tbody>
+      <tbody class="text-center" v-else>
+        <td colspan="6" class="text-error-600 font-bold text-[24px]">
+          Data Not found
+        </td>
       </tbody>
     </table>
     <Pagination :page="page" :totalPage="totalPage" routes="adminConsole" />

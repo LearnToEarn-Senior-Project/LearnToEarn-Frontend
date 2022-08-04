@@ -4,12 +4,15 @@ import CryptoJS from "crypto-js";
 
 export default createStore({
   state: {
-    currentUser: apiClient.get(
-      `/getUser/${CryptoJS.AES.decrypt(
-        localStorage.getItem("user"),
-        "uwvuvvwevwewvwe onyetenyevwe"
-      ).toString(CryptoJS.enc.Utf8)}`
-    ),
+    currentUser:
+      localStorage.getItem("user") != null
+        ? apiClient.get(
+            `/getUser/${CryptoJS.AES.decrypt(
+              localStorage.getItem("user"),
+              "uwvuvvwevwewvwe onyetenyevwe"
+            ).toString(CryptoJS.enc.Utf8)}`
+          )
+        : null,
     role: null,
     reward: null,
     rewards: null,
