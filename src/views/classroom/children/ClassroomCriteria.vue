@@ -111,9 +111,12 @@ export default {
       if (criteriaObject.second.value == false) {
         criteriaObject.second.count = null;
       }
+      console.log(this.criteria.second.count);
       if (
         criteriaObject.second.value == true &&
-        (criteriaObject.second.count <= 0 || this.criteria.second.count == null)
+        (criteriaObject.second.count <= 0 ||
+          this.criteria.second.count == null ||
+          this.criteria.second.count == "")
       ) {
         showAlert(
           "error",

@@ -55,8 +55,16 @@
         </div>
         <div class="w-1/2 ml-6">
           <div class="text-[14px] font-medium mt-4">Current Image</div>
-          <img v-if="reward.image" :src="reward.image" class="h-40" />
-          <img v-else src="@/assets/reward.png" class="h-40" />
+          <expandable-image
+            v-if="reward.image"
+            :src="reward.image"
+            class="h-40"
+          />
+          <expandable-image
+            v-else
+            :src="require('@/assets/reward.png')"
+            class="h-40"
+          />
         </div>
       </div>
       <div class="flex gap-4 mt-4 w-full">

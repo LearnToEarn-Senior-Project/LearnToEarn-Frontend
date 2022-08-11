@@ -2,12 +2,16 @@
   <div class="px-[128px] py-[64px]" v-if="reward">
     <div class="flex flex-wrap">
       <div>
-        <img
+        <expandable-image
           v-if="reward.image"
           :src="reward.image"
           class="min-w-[300px] h-[300px]"
         />
-        <img v-else src="@/assets/reward.png" class="min-w-[300px] h-[300px]" />
+        <expandable-image
+          v-else
+          :src="require('@/assets/reward.png')"
+          class="w-[300px] h-[300px]"
+        />
         <div class="flex justify-center items-center gap-2 mt-4">
           <Coin />
           <span class="text-[24px] font-bold">{{
@@ -123,7 +127,7 @@ export default {
         "confirm",
         "Purchase Confirmation",
         `Do you want to purchase '${this.reward.name}' for ${this.reward.price} token?`,
-        "purchase"
+        "Purchase"
       ).then((response) => {
         if (response.isConfirmed) {
           RewardServices.buy(this.reward).then(() => {

@@ -9,7 +9,7 @@
     <div class="justify-between flex text-[16px]">
       <span class="truncate">Due {{ getDate() }}</span>
       <div class="flex items-center gap-[15px]">
-        <span>Score {{ getScore() }} /{{ assignment.max_point }}</span>
+        <span>Score {{ getScore() }}/{{ assignment.max_point }}</span>
         <span>Token: <span class="text-secondary-600">-</span></span>
       </div>
     </div>
@@ -72,7 +72,7 @@ export default {
     },
     getScore() {
       try {
-        return assignment.student_submission[0].score;
+        return this.assignment.student_submission[0].score;
       } catch (error) {
         return "-";
       }
