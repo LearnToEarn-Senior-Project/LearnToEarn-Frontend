@@ -22,7 +22,7 @@ export default createStore({
     currentToken: null,
     tokenHistory: null,
     tokenHistories: null,
-    transactionId: null,
+    tokenHistoryId: null,
     classroomWithAssignment: null,
   },
   getters: {
@@ -56,8 +56,8 @@ export default createStore({
     getTokenHistories(state) {
       return state.tokenHistories;
     },
-    getTransactionId(state) {
-      return state.transactionId;
+    getTokenHistoryId(state) {
+      return state.tokenHistoryId;
     },
     getClassroomWithAssignment(state) {
       return state.classroomWithAssignment;
@@ -94,8 +94,8 @@ export default createStore({
     setTokenHistories(state, value) {
       state.tokenHistories = value;
     },
-    setTransactionId(state, value) {
-      state.transactionId = value;
+    setTokenHistoryId(state, value) {
+      state.tokenHistoryId = value;
     },
     setClassroomWithAssignment(state, value) {
       state.classroomWithAssignment = value;
@@ -132,8 +132,8 @@ export default createStore({
     setTokenHistories(context, value) {
       context.commit("setTokenHistories", value);
     },
-    setTransactionId(context, value) {
-      context.commit("setTransactionId", value);
+    setTokenHistoryId(context, value) {
+      context.commit("setTokenHistoryId", value);
     },
     setClassroomWithAssignment(context, value) {
       context.commit("setClassroomWithAssignment", value);

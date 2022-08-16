@@ -13,7 +13,7 @@ export default {
     return JSON.parse(studentCurrentToken.data);
   },
   async addToken(token) {
-    return apiClient.post("/addToken", { amount: parseFloat(token) });
+    return apiClient.post("/addToken", { amountOfCoin: parseFloat(token) });
   },
   async getAllToken() {
     let allToken = await apiClient.get("/getAllToken");
@@ -43,18 +43,18 @@ export default {
       store.dispatch("setTokenHistories", response.data);
     });
   },
-  async approveBill(transaction_id) {
-    await apiClient.patch(`/approveBill/${transaction_id}`);
+  async approveStatement(tokenHistory_id) {
+    await apiClient.patch(`/approve/${tokenHistory_id}`);
   },
-  async getBillImage(transaction_id, reward_id) {
+  async getStudentStatementImage(tokenHistory_id, reward_id) {
     await apiClient
       .post(
-        `/getBillImage/${CryptoJS.AES.decrypt(
+        `/getStatementImage/${CryptoJS.AES.decrypt(
           localStorage.getItem("user"),
           "uwvuvvwevwewvwe onyetenyevwe"
         ).toString(CryptoJS.enc.Utf8)}`,
         {
-          transaction_id: transaction_id,
+          tokenHistory_id: tokenHistory_id,
           reward_id: reward_id,
         }
       )

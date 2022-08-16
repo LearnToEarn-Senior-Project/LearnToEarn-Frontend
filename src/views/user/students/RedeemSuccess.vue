@@ -20,25 +20,25 @@ export default {
   data() {
     return {
       image: null,
-      transaction_id: null,
+      tokenHistory_id: null,
     };
   },
   methods: {
     saveImage() {
       var a = document.createElement("a");
       a.href = this.image;
-      a.download = this.transaction_id + ".png";
+      a.download = this.tokenHistory_id + ".png";
       a.click();
     },
   },
   async created() {
-    this.transaction_id = this.$route.params.transaction_id;
-    if (Array.isArray(this.transaction_id)) {
-      this.transaction_id = this.transaction_id[0];
+    this.tokenHistory_id = this.$route.params.tokenHistory_id;
+    if (Array.isArray(this.tokenHistory_id)) {
+      this.tokenHistory_id = this.tokenHistory_id[0];
     }
     try {
-      await TokenServices.getBillImage(
-        this.transaction_id,
+      await TokenServices.getStudentStatementImage(
+        this.tokenHistory_id,
         this.$route.params.reward_id
       ).then(() => {
         this.image =

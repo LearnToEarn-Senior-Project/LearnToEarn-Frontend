@@ -107,7 +107,7 @@ export default [
     path: "/token_history",
     name: "tokenHistory",
     component: () =>
-      import("../views/user/students/TokenTransactionHistory.vue"),
+      import("../views/user/students/TokenHistory.vue"),
     meta: {
       requiresAuth: true,
       studentOnly: true,
@@ -117,9 +117,9 @@ export default [
     }),
   },
   {
-    path: "/success/wql:transaction_id+w:reward_id",
-    name: "purchaseSuccess",
-    component: () => import("../views/user/students/PurchaseSuccess.vue"),
+    path: "/success/wql:tokenHistory_id+w:reward_id",
+    name: "redeemSuccess",
+    component: () => import("../views/user/students/RedeemSuccess.vue"),
     meta: {
       requiresAuth: true,
       studentOnly: true,
@@ -177,9 +177,9 @@ export default [
     },
   },
   {
-    path: "/bill_approval",
-    name: "billApproval",
-    component: () => import("../views/user/admin/BillApproval.vue"),
+    path: "/student_statement_approval",
+    name: "statementApproval",
+    component: () => import("../views/user/admin/StudentStatementApproval.vue"),
     meta: {
       requiresAuth: true,
       adminOnly: true,

@@ -1,6 +1,8 @@
 <template>
   <div class="py-8" v-if="histories">
-    <div class="font-bold text-[48px] text-center mb-4">Bill Approval</div>
+    <div class="font-bold text-[48px] text-center mb-4">
+      Student Statement Approval
+    </div>
     <Form @submit="searchById">
       <div class="flex items-center mx-8 mb-4">
         <BaseInput
@@ -17,10 +19,10 @@
         <thead class="text-[24px]">
           <tr>
             <th class="py-4 w-1/6">No</th>
-            <th class="w-1/6">Transaction ID</th>
+            <th class="w-1/6">Token History ID</th>
             <th class="w-1/6">Student ID</th>
             <th class="w-1/6">Date</th>
-            <th class="w-1/6">Bill</th>
+            <th class="w-1/6">Statement</th>
           </tr>
         </thead>
         <tbody class="text-center" v-if="histories.length > 0">
@@ -37,7 +39,7 @@
                 class="bg-success-700 hover:bg-success-800 active:bg-success-900"
                 :click="
                   () => {
-                    approveBill(history._id);
+                    approveStatement(history._id);
                   }
                 "
               />
@@ -54,7 +56,7 @@
     <Pagination
       :page="page"
       :totalPage="totalPage"
-      routes="billApproval"
+      routes="statementApproval"
       v-if="totalHistory > 0"
     />
   </div>
@@ -87,19 +89,19 @@ export default {
     };
   },
   methods: {
-    async approveBill(transaction_id) {
+    async approveStatement(tokenHistory_id) {
       showAlert(
         "confirm",
-        "Do you want to approve this bill?",
+        "Do you want to approve this statement?",
         "",
         "Confirm"
       ).then(async (response) => {
         if (response.isConfirmed) {
-          await TokenServices.approveBill(transaction_id)
+          await TokenServices.approveStatement(tokenHistory_id)
             .then(() => {
               showAlert(
                 "success",
-                "Approve this bill successfully",
+                "Approve this statement successfully",
                 "",
                 "Confirm",
                 false
@@ -112,7 +114,7 @@ export default {
             .catch(() => {
               showAlert(
                 "error",
-                "Cannot approve this bill",
+                "Cannot approve this statement",
                 "Found the unexpected problem please try again later",
                 "Confirm",
                 false

@@ -55,12 +55,12 @@
         </div>
         <div class="w-1/2 ml-6">
           <div class="text-[14px] font-medium mt-4">Current Image</div>
-          <expandable-image
+          <img
             v-if="reward.image"
             :src="reward.image"
             class="h-40"
           />
-          <expandable-image
+          <img
             v-else
             :src="require('@/assets/reward.png')"
             class="h-40"

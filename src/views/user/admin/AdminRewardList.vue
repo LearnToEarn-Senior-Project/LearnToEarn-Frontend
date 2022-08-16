@@ -15,8 +15,8 @@
           :click="() => this.$router.push({ name: 'addReward' })"
         />
         <SubmitButton
-          text="Bill Approval"
-          :click="() => this.$router.push({ name: 'billApproval' })"
+          text="Student Statement Approval"
+          :click="() => this.$router.push({ name: 'statementApproval' })"
         />
       </div>
     </div>

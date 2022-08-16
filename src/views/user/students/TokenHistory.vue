@@ -6,10 +6,10 @@
         <thead class="text-[24px]">
           <tr>
             <th class="py-4 w-1/6">No</th>
-            <th class="w-1/6">Transaction ID</th>
+            <th class="w-1/6">Token History ID</th>
             <th class="w-1/6">Date</th>
-            <th class="w-1/6">Amount</th>
-            <th class="w-1/6">Bill</th>
+            <th class="w-1/6">Amount of coins</th>
+            <th class="w-1/6">Statement</th>
           </tr>
         </thead>
         <tbody class="text-center" v-if="histories.length > 0">
@@ -25,12 +25,12 @@
                 <span
                   class="font-bold"
                   :class="[
-                    history.amount < 0 && 'text-error-700',
-                    history.amount > 0 && 'text-success-600',
+                    history.amountOfCoin < 0 && 'text-error-700',
+                    history.amountOfCoin > 0 && 'text-success-600',
                   ]"
                 >
-                  <span v-if="history.amount > 0">+</span>
-                  <span>{{ history.amount }}</span>
+                  <span v-if="history.amountOfCoin > 0">+</span>
+                  <span>{{ history.amountOfCoin }}</span>
                 </span>
               </div>
             </td>
@@ -38,13 +38,13 @@
               <SubmitButton
                 text="See Details"
                 class="w-1/2"
-                :disabled="!(history.reward_id != null && history.amount < 0)"
+                :disabled="!(history.reward_id != null && history.amountOfCoin < 0)"
                 :click="
                   () => {
                     this.$router.push({
-                      name: 'purchaseSuccess',
+                      name: 'redeemSuccess',
                       params: {
-                        transaction_id: history._id,
+                        tokenHistory_id: history._id,
                         reward_id: history.reward_id,
                       },
                     });

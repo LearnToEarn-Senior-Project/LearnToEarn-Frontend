@@ -43,17 +43,17 @@ export default {
   async deleteRewardByID(id) {
     await apiClient.delete(`/deleteReward/${id}`);
   },
-  async buy(reward) {
+  async redeem(reward) {
     await apiClient
       .patch(
-        `/buyReward/${CryptoJS.AES.decrypt(
+        `/redeem/${CryptoJS.AES.decrypt(
           localStorage.getItem("user"),
           "uwvuvvwevwewvwe onyetenyevwe"
         ).toString(CryptoJS.enc.Utf8)}`,
         reward
       )
       .then((response) => {
-        store.dispatch("setTransactionId", response.data._id);
+        store.dispatch("setTokenHistoryId", response.data._id);
       });
   },
 };

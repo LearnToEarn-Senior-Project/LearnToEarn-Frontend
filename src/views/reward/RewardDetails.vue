@@ -41,11 +41,11 @@
     </div>
     <div class="flex mt-4 w-full gap-4">
       <SubmitButton
-        text="Purchase"
+        text="Redeem"
         class="w-full"
         v-if="role[0] == 'student'"
         :disabled="token < reward.price || Number(reward.amount) <= 0"
-        :click="buy"
+        :click="redeem"
       />
       <SubmitButton
         text="Edit"
@@ -84,7 +84,7 @@ export default {
       role: null,
       reward: null,
       token: 0,
-      transactionId: null,
+      tokenHistoryId: null,
     };
   },
   methods: {
@@ -122,28 +122,28 @@ export default {
         }
       });
     },
-    buy() {
+    redeem() {
       showAlert(
         "confirm",
-        "Purchase Confirmation",
-        `Do you want to purchase '${this.reward.name}' for ${this.reward.price} token?`,
-        "Purchase"
+        "Redeem Confirmation",
+        `Do you want to redeem '${this.reward.name}' for ${this.reward.price} token?`,
+        "Redeem"
       ).then((response) => {
         if (response.isConfirmed) {
-          RewardServices.buy(this.reward).then(() => {
-            this.transactionId = this.$store.getters.getTransactionId;
+          RewardServices.redeem(this.reward).then(() => {
+            this.tokenHistoryId = this.$store.getters.getTokenHistoryId;
             showAlert(
               "success",
-              "Purchase Success!!",
+              "Redeem Success!!",
               "",
               "confirm",
               false
             ).then((response) => {
               if (response.isConfirmed) {
                 this.$router.push({
-                  name: "purchaseSuccess",
+                  name: "redeemSuccess",
                   params: {
-                    transaction_id: this.transactionId,
+                    tokenHistory_id: this.tokenHistoryId,
                     reward_id: this.reward._id,
                   },
                 });
