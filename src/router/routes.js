@@ -188,4 +188,13 @@ export default [
       page: parseInt(route.query.page) || 1,
     }),
   },
+  {
+    path: "/qr_code_student_statement_approval",
+    name: "qrCodeStatementApproval",
+    component: () => import("../views/user/admin/ApproveByQRCode.vue"),
+    meta: {
+      requiresAuth: true,
+      adminOnly: true,
+    },
+  },
 ];

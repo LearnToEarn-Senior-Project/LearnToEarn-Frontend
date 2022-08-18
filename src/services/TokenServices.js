@@ -44,7 +44,9 @@ export default {
     });
   },
   async approveStatement(tokenHistory_id) {
-    await apiClient.patch(`/approve/${tokenHistory_id}`);
+    tokenHistory_id = tokenHistory_id.split("/");
+    tokenHistory_id = tokenHistory_id[0];
+    return apiClient.patch(`/approve/${tokenHistory_id}`);
   },
   async getStudentStatementImage(tokenHistory_id, reward_id) {
     await apiClient

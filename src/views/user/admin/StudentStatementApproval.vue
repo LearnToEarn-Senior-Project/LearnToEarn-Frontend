@@ -9,9 +9,20 @@
           name="search"
           placeholder="Search by input Student ID"
           type="text"
-          class="mr-2"
+          class="mr-2 w-3/4"
         />
-        <SubmitButton text="Search" class="h-full" />
+        <div class="flex items-center w-1/4">
+          <SubmitButton text="Search" class="h-full mr-2 w-full" />
+          <CancelButton
+            text="QR Scan"
+            class="h-full w-full bg-success-700 hover:bg-success-800 active:bg-success-900"
+            :click="
+              () => {
+                this.$router.push({ name: 'qrCodeStatementApproval' });
+              }
+            "
+          />
+        </div>
       </div>
     </Form>
     <div class="overflow-x-auto">
@@ -66,6 +77,7 @@ import BaseInput from "@/components/input/BaseInput.vue";
 import Pagination from "@/components/pagination/BasePagination.vue";
 import TokenServices from "@/services/TokenServices";
 import SubmitButton from "@/components/button/children/SubmitButton.vue";
+import CancelButton from "@/components/button/children/CancelButton.vue";
 import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
 import { Form } from "vee-validate";
 export default {
@@ -74,6 +86,7 @@ export default {
     Pagination,
     SubmitButton,
     Form,
+    CancelButton,
   },
   props: {
     page: {
