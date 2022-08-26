@@ -32,7 +32,7 @@ export default {
     await apiClient
       .get(`/getUser/${userObject.id}`)
       .then(async (responseUser) => {
-        if (responseUser.data.length == 0) {
+        if (responseUser.data == "User not found") {
           await Swal.fire({
             title: "Terms and conditions",
             input: "checkbox",

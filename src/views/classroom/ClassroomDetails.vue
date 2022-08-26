@@ -12,7 +12,12 @@
         <BaseButton
           v-if="role.includes('teacher') && role[0] == 'teacher'"
           text="Token Criteria"
-          class="text-primary-500 bg-primary-100 hover:bg-primary-300 hover:text-shade-white active:bg-primary-500 active:text-shade-white"
+          class="
+            text-primary-500
+            bg-primary-100
+            hover:bg-primary-300 hover:text-shade-white
+            active:bg-primary-500 active:text-shade-white
+          "
           :click="
             () =>
               $router.push({
@@ -24,7 +29,9 @@
       </div>
     </div>
 
-    <div>Total Score: {{ currentOverallScore() }} / 100</div>
+    <div v-if="role.includes('student') && role[0] == 'student'">
+      Total Score: {{ currentOverallScore() }} / 100
+    </div>
 
     <div class="text-[32px] text-center font-bold mb-4">Assignment</div>
     <AssignmentCard
