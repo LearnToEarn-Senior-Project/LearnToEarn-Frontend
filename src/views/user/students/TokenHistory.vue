@@ -38,7 +38,9 @@
               <SubmitButton
                 text="See Details"
                 class="w-1/2"
-                :disabled="!(history.reward_id != null && history.amountOfCoin < 0)"
+                :disabled="
+                  !(history.reward_id != null && history.amountOfCoin < 0)
+                "
                 :click="
                   () => {
                     this.$router.push({
