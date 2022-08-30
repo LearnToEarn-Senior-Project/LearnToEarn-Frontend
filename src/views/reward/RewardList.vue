@@ -1,7 +1,7 @@
 <template>
   <div class="py-8 px-28" v-if="rewards">
     <div class="font-bold text-[48px] text-center mb-8">Reward Shop</div>
-    <div class="gap-[32px] flex flex-wrap items-center">
+    <div class="gap-[32px] flex flex-wrap items-center justify-center">
       <div
         v-if="totalRewards == 0"
         class="w-full h-full text-center text-error-700 text-[24px]"

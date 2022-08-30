@@ -44,7 +44,11 @@ export default {
                   "Found the unexpected problem please try again later",
                   "Confirm",
                   false
-                );
+                ).then((response) => {
+                  if (response.isConfirmed) {
+                    this.$router.go();
+                  }
+                });
               } else {
                 showAlert(
                   "success",

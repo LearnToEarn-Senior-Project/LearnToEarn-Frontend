@@ -55,16 +55,8 @@
         </div>
         <div class="w-1/2 ml-6">
           <div class="text-[14px] font-medium mt-4">Current Image</div>
-          <img
-            v-if="reward.image"
-            :src="reward.image"
-            class="h-40"
-          />
-          <img
-            v-else
-            :src="require('@/assets/reward.png')"
-            class="h-40"
-          />
+          <img v-if="reward.image" :src="reward.image" class="h-40" />
+          <img v-else :src="require('@/assets/reward.png')" class="h-40" />
         </div>
       </div>
       <div class="flex gap-4 mt-4 w-full">
@@ -131,34 +123,34 @@ export default {
         "Confirm"
       ).then((response) => {
         if (response.isConfirmed) {
-          showAlert(
-            "success",
-            "Update reward successfully",
-            "",
-            "Confirm",
-            false
-          ).then((response) => {
-            if (response.isConfirmed) {
-              Promise.all(
-                this.img.map((file) => {
-                  return RewardServices.uploadImage(file);
-                })
-              )
-                .then((response) => {
-                  RewardServices.updateRewardByID(
-                    this.$route.params.id,
-                    data.name,
-                    data.details,
-                    data.amount,
-                    data.price,
-                    JSON.parse(JSON.stringify(response.map((r) => r.data)))[0]
-                  );
-                })
-                .then(() => {
+          Promise.all(
+            this.img.map((file) => {
+              return RewardServices.uploadImage(file);
+            })
+          )
+            .then((response) => {
+              RewardServices.updateRewardByID(
+                this.$route.params.id,
+                data.name,
+                data.details,
+                parseInt(data.amount),
+                data.price,
+                JSON.parse(JSON.stringify(response.map((r) => r.data)))[0]
+              );
+            })
+            .then(() => {
+              showAlert(
+                "success",
+                "Update reward successfully",
+                "",
+                "Confirm",
+                false
+              ).then((response) => {
+                if (response.isConfirmed) {
                   this.$router.go(-1);
-                });
-            }
-          });
+                }
+              });
+            });
         }
       });
     },

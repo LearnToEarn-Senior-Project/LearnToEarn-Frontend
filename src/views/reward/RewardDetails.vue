@@ -136,7 +136,7 @@ export default {
               "success",
               "Redeem Success!!",
               "",
-              "confirm",
+              "Confirm",
               false
             ).then((response) => {
               if (response.isConfirmed) {
