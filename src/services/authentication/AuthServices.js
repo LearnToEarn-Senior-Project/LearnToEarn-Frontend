@@ -39,7 +39,7 @@ export default {
             showCancelButton: true,
             inputValue: 1,
             inputPlaceholder:
-              "I agree with the <a href='http://localhost:3000/terms_and_conditions' target='_blank'><u>terms and conditions</u></a>",
+              "I agree with the <a href='https://learntoearn-se-cmu2022.web.app/terms_and_conditions' target='_blank'><u>terms and conditions</u></a>",
             confirmButtonText: "Accept",
             inputValidator: (result) => {
               return !result && "You need to agree with T&C";
@@ -68,7 +68,7 @@ export default {
         }
       });
     setTimeout(() => {
-      window.location.href = "http://localhost:3000/";
+      window.location.href = "https://learntoearn-se-cmu2022.web.app/";
     }, 100);
   },
   async getRole() {
