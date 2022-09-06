@@ -23,7 +23,7 @@ export default {
   methods: {
     goToCMULogin() {
       window.location.href =
-        "https://oauth.cmu.ac.th/v1/Authorize.aspx?response_type=code&client_id=DfQ7tTs1Qua9Jktfz5UupXN3uvZHsD1HUtYq617r&redirect_uri=http:/localhost:3000/redirect&scope=cmuitaccount.basicinfo&state=xyz";
+        "https://oauth.cmu.ac.th/v1/Authorize.aspx?response_type=code&client_id=DfQ7tTs1Qua9Jktfz5UupXN3uvZHsD1HUtYq617r&redirect_uri=https://learntoearn-se-cmu2022.web.app/redirect&scope=cmuitaccount.basicinfo&state=xyz";
     },
   },
 };
