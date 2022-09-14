@@ -136,6 +136,16 @@ export default [
       teacherOnly: true,
     },
   },
+  {
+    path: "/classroom/:id/statistics",
+    name: "classroomCriteriaStatictic",
+    component: () =>
+      import("../views/classroom/children/ClassroomCriteriaStatistics.vue"),
+    meta: {
+      requiresAuth: true,
+      teacherOnly: true,
+    },
+  },
   /*================= ADMIN =================*/
   {
     path: "/admin_console",

@@ -11,7 +11,7 @@
           type="checkbox"
           name="first"
           class="h-8 w-8 mx-4"
-          v-model="criteria.first"
+          v-model="criteria.first.value"
         />
         <div class="text-[20px]">Submit work on time</div>
       </div>
@@ -34,7 +34,31 @@
               <input
                 type="Number"
                 name="count"
-                class="w-16 h-8 text-sm w-full border-[3px] border-neutral-500 rounded-lg px-4 py-2 focus:outline-none focus:border-primary-500 focus:text-primary-500 focus:ring-2 focus:ring-primary-400 focus:text-primary-400 focus:border-[3px] focus:placeholder:text-primary-400 active:outline-primary-400 active:border-primary-400 active:outline-2 active:text-primary-400 active:border-[3px] disabled:bg-neutral-100 disabled:text-500 active:placeholder:text-primary-400"
+                class="
+                  w-16
+                  h-8
+                  text-sm
+                  w-full
+                  border-[3px] border-neutral-500
+                  rounded-lg
+                  px-4
+                  py-2
+                  focus:outline-none
+                  focus:border-primary-500
+                  focus:text-primary-500
+                  focus:ring-2
+                  focus:ring-primary-400
+                  focus:text-primary-400
+                  focus:border-[3px]
+                  focus:placeholder:text-primary-400
+                  active:outline-primary-400
+                  active:border-primary-400
+                  active:outline-2
+                  active:text-primary-400
+                  active:border-[3px]
+                  disabled:bg-neutral-100 disabled:text-500
+                  active:placeholder:text-primary-400
+                "
                 v-model="criteria.second.count"
                 min="1"
               />
@@ -48,7 +72,7 @@
           type="checkbox"
           name="third"
           class="h-8 w-8 mx-4"
-          v-model="criteria.third"
+          v-model="criteria.third.value"
         />
         <div class="text-[20px]">
           <div>Checking Attendance</div>
@@ -105,13 +129,13 @@ export default {
         second: {
           value: this.criteria.second.value,
           count: parseInt(this.criteria.second.count),
+          statCount: this.criteria.second.statCount,
         },
         third: this.criteria.third,
       };
       if (criteriaObject.second.value == false) {
         criteriaObject.second.count = null;
       }
-      console.log(this.criteria.second.count);
       if (
         criteriaObject.second.value == true &&
         (criteriaObject.second.count <= 0 ||

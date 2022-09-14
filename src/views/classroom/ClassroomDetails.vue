@@ -8,9 +8,27 @@
   <div class="p-8" v-if="classroom">
     <div class="flex items-center justify-between">
       <span class="font-bold text-[48px] truncate">{{ classroom.name }}</span>
-      <div class="flex gap-x-4">
+      <div
+        class="flex gap-x-4"
+        v-if="role.includes('teacher') && role[0] == 'teacher'"
+      >
         <BaseButton
-          v-if="role.includes('teacher') && role[0] == 'teacher'"
+          text="Token Criteria Statistic"
+          class="
+            text-primary-900
+            bg-secondary-500
+            hover:bg-secondary-500 hover:text-shade-white
+            active:bg-secondary-300 active:text-shade-white
+          "
+          :click="
+            () =>
+              $router.push({
+                name: 'classroomCriteriaStatictic',
+                params: { id: classroom._id },
+              })
+          "
+        />
+        <BaseButton
           text="Token Criteria"
           class="
             text-primary-500
@@ -38,6 +56,7 @@
       v-for="assignment in classroom.assignment_list"
       :key="assignment"
       :assignment="assignment"
+      :role="role"
       class="mb-4"
     />
   </div>
