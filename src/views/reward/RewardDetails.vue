@@ -5,7 +5,7 @@
         <expandable-image
           v-if="reward.image"
           :src="reward.image"
-          class="min-w-[300px] h-[300px]"
+          class="w-[300px] h-[300px]"
         />
         <expandable-image
           v-else
@@ -60,7 +60,13 @@
       />
       <BaseButton
         text="delete"
-        class="w-full text-shade-white bg-error-700 hover:bg-error-800 active:bg-error-900"
+        class="
+          w-full
+          text-shade-white
+          bg-error-700
+          hover:bg-error-800
+          active:bg-error-900
+        "
         :click="deleteReward"
         v-if="role.includes('admin') && role[0] == 'admin'"
       />
@@ -132,23 +138,19 @@ export default {
         if (response.isConfirmed) {
           RewardServices.redeem(this.reward).then(() => {
             this.tokenHistoryId = this.$store.getters.getTokenHistoryId;
-            showAlert(
-              "success",
-              "Redeem Success!!",
-              "",
-              "Confirm",
-              false
-            ).then((response) => {
-              if (response.isConfirmed) {
-                this.$router.push({
-                  name: "redeemSuccess",
-                  params: {
-                    tokenHistory_id: this.tokenHistoryId,
-                    reward_id: this.reward._id,
-                  },
-                });
+            showAlert("success", "Redeem Success!!", "", "Confirm", false).then(
+              (response) => {
+                if (response.isConfirmed) {
+                  this.$router.push({
+                    name: "redeemSuccess",
+                    params: {
+                      tokenHistory_id: this.tokenHistoryId,
+                      reward_id: this.reward._id,
+                    },
+                  });
+                }
               }
-            });
+            );
           });
         }
       });
