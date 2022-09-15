@@ -2,11 +2,11 @@
   <div class="py-8" v-if="histories">
     <div class="font-bold text-[48px] text-center mb-8">Token History</div>
     <div class="overflow-x-auto">
-      <table>
+      <table class="w-full">
         <thead class="text-[24px]">
           <tr>
             <th class="py-4 w-1/6">No</th>
-            <th class="w-1/6">Token History ID</th>
+            <th class="w-1/6">Reward Name</th>
             <th class="w-1/6">Date</th>
             <th class="w-1/6">Amount of coins</th>
             <th class="w-1/6">Statement</th>
@@ -17,7 +17,7 @@
             <td class="text-[28px] font-bold py-2">
               {{ index + 1 }}
             </td>
-            <td class="truncate">{{ history._id }}</td>
+            <td class="truncate">{{ rewards[index] }}</td>
             <td>{{ history.date }}</td>
             <td>
               <div class="flex items-center justify-center">
@@ -69,6 +69,7 @@
 <script>
 import Pagination from "@/components/pagination/BasePagination.vue";
 import TokenServices from "@/services/TokenServices";
+import RewardServices from "@/services/RewardServices";
 import Coin from "@/assets/icons/coin/coin_md.svg?inline";
 import SubmitButton from "@/components/button/children/SubmitButton.vue";
 export default {
@@ -86,17 +87,25 @@ export default {
   data() {
     return {
       histories: null,
+      rewards: [],
       totalHistory: 0,
       totalPage: 1,
     };
   },
-  async created() {
-    await TokenServices.getAllTokenHistory(this.page, true).then(() => {
+  created() {
+    TokenServices.getAllTokenHistory(this.page, true).then(() => {
       this.totalHistory = this.$store.getters.getTokenHistories.total_histories;
       if (this.totalHistory > 0) {
         this.totalPage = Math.ceil(this.totalHistory / 10);
       }
       this.histories = this.$store.getters.getTokenHistories.token_history_list;
+      for (let index = 0; index < this.histories.length; index++) {
+        RewardServices.getRewardByID(this.histories[index].reward_id).then(
+          () => {
+            this.rewards[index] = this.$store.getters.getReward.name;
+          }
+        );
+      }
     });
   },
   beforeRouteUpdate(routeTo) {
@@ -105,6 +114,13 @@ export default {
       true
     ).then(() => {
       this.histories = this.$store.getters.getTokenHistories.token_history_list;
+      for (let index = 0; index < this.histories.length; index++) {
+        RewardServices.getRewardByID(this.histories[index].reward_id).then(
+          () => {
+            this.rewards[index] = this.$store.getters.getReward.name;
+          }
+        );
+      }
     });
   },
 };
