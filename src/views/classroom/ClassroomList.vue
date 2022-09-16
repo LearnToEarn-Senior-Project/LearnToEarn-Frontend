@@ -2,12 +2,6 @@
   <div class="py-8 px-28">
     <div class="font-bold text-[48px] text-center mb-8">Classroom List</div>
     <div class="gap-[32px] flex flex-wrap items-center justify-center">
-      <div
-        v-if="totalClassrooms == 0"
-        class="w-full h-full text-center text-error-700 text-[24px]"
-      >
-        {{ text }}
-      </div>
       <ClassroomCard
         v-for="classroom in classrooms"
         :key="classroom.id"
@@ -26,6 +20,7 @@
 import ClassroomCard from "@/components/card/ClassroomCard.vue";
 import Pagination from "@/components/pagination/BasePagination.vue";
 import ClassroomServices from "@/services/ClassroomServices.js";
+import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
 export default {
   components: {
     ClassroomCard,
@@ -42,11 +37,18 @@ export default {
       classrooms: null,
       totalClassrooms: 0,
       totalPage: 1,
-      text: null,
     };
   },
   async created() {
-    this.text = "Please wait for classroom data loading...";
+    let text = null;
+    if (this.totalClassrooms == 0) {
+      text = this.$loading.show({
+        isFullPage: false,
+        canCancel: false,
+        lockScroll: true,
+        color: "#00017a",
+      });
+    }
     await ClassroomServices.getAllClassroom(this.page).then(() => {
       this.totalClassrooms = this.$store.getters.getClassrooms.total_classrooms;
       if (this.totalClassrooms > 0) {
@@ -54,8 +56,16 @@ export default {
       }
       this.classrooms = this.$store.getters.getClassrooms.classroom_list;
       if (this.classrooms.length == 0) {
-        this.text =
-          "The classrooms are unavailable. Please connect the Google Account to get the classroom, Or the Google Account must contain more than one classroom.";
+        text.hide();
+        showAlert(
+          "error",
+          "",
+          "The classrooms are unavailable. Please connect the Google Account to get the classroom, Or the Google Account must contain more than one classroom.",
+          "Confirm",
+          false
+        );
+      } else {
+        text.hide();
       }
     });
   },

@@ -1,11 +1,27 @@
 <template>
   <div
-    class="border-[1px] border-neutral-400 px-8 py-2 flex items-center justify-between rounded-[10px] mb-4"
+    class="
+      border-[1px] border-neutral-400
+      px-8
+      py-2
+      flex
+      items-center
+      justify-between
+      rounded-[10px]
+      mb-4
+    "
   >
     <div class="flex items-center justify-between">
       <img
+        referrerpolicy="no-referrer"
         :src="isAuth ? img : require(`@/assets/icons/logo/${img}`)"
-        class="w-[72px] h-[72px] rounded-full border-[1px] border-neutral-400 mr-8"
+        class="
+          w-[72px]
+          h-[72px]
+          rounded-full
+          border-[1px] border-neutral-400
+          mr-8
+        "
       />
       <div class="grid items-center">
         <div class="text-[32px] font-bold">

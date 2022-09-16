@@ -6,6 +6,8 @@ import GAuth from "vue-google-oauth2";
 import VueSweetalert2 from "vue-sweetalert2";
 import VueQrcodeReader from "vue-qrcode-reader";
 import VueExpandableImage from "vue-expandable-image";
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import "./index.css";
 import "@/services/axios/AxiosInterceptorSetup.js";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -29,6 +31,7 @@ const gauthOption = {
 createApp(App)
   .use(store)
   .use(router)
+  .use(VueLoading)
   .use(VueQrcodeReader)
   .use(VueExpandableImage)
   .use(GAuth, gauthOption)

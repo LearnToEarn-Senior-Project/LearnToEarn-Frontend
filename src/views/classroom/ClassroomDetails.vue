@@ -1,10 +1,4 @@
 <template>
-  <div
-    v-if="!classroom"
-    class="w-full h-full text-center text-error-700 text-[24px] p-8"
-  >
-    {{ text }}
-  </div>
   <div class="p-8" v-if="classroom">
     <div class="flex items-center justify-between">
       <span class="font-bold text-[48px] truncate">{{ classroom.name }}</span>
@@ -102,10 +96,19 @@ export default {
     },
   },
   async created() {
-    this.text = "Please wait for data loading...";
+    let text = null;
+    if (!this.classroom) {
+      text = this.$loading.show({
+        isFullPage: false,
+        canCancel: false,
+        lockScroll: true,
+        color: "#00017a",
+      });
+    }
     await ClassroomServices.getClassroomWithAssignment(
       this.$route.params.id
     ).then(async () => {
+      text.hide();
       this.role = await this.$store.getters.getRole;
       this.classroom = this.$store.getters.getClassroomWithAssignment;
       GoogleServices.getGoogleData().then(async (response) => {

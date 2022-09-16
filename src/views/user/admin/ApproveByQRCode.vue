@@ -6,9 +6,6 @@
     <div class="md:mx-96 mx-4 mt-8">
       <qrcode-stream @decode="onDecode" @init="onInit" :track="paintOutline" />
     </div>
-    <p class="mx-auto mt-4 text-center"><b>Result</b></p>
-    <div class="break-all mx-4" v-if="result">{{ result }}</div>
-    <div class="break-all mx-4 text-error-600" v-if="error">{{ error }}</div>
   </div>
 </template>
 <script>
@@ -21,13 +18,11 @@ export default {
   },
   data() {
     return {
-      result: "",
       error: "",
     };
   },
   methods: {
     onDecode(tokenHistory_id) {
-      this.result = tokenHistory_id;
       showAlert(
         "confirm",
         "Do you want to approve this statement?",
