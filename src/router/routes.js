@@ -1,6 +1,5 @@
-import AuthServices from "@/services/authentication/AuthServices.js";
 import router from ".";
-import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
+import AuthServices from "@/services/authentication/AuthServices.js";
 export default [
   /*================== ALL ==================*/
   {
@@ -29,27 +28,6 @@ export default [
     path: "/terms_and_conditions",
     name: "termAndConditions",
     component: () => import("../views/TermsAndConditions.vue"),
-  },
-  {
-    path: "/test_component",
-    name: "testComponents",
-    component: () => import("../views/AboutView.vue"),
-    meta: {
-      requiresAuth: true,
-    },
-    beforeEnter: () => {
-      showAlert(
-        "Maintain",
-        "This feature is not available at now!!",
-        "",
-        "confirm",
-        false
-      ).then((response) => {
-        if (response.isConfirmed) {
-          router.go(-1);
-        }
-      });
-    },
   },
   /*========== STUDENT AND TEACHER ==========*/
   {
