@@ -2,12 +2,12 @@
   <div class="px-[128px] py-[64px]" v-if="reward">
     <div class="flex flex-wrap">
       <div>
-        <expandable-image
+        <img
           v-if="reward.image"
           :src="reward.image"
           class="w-[300px] h-[300px]"
         />
-        <expandable-image
+        <img
           v-else
           :src="require('@/assets/reward.png')"
           class="w-[300px] h-[300px]"

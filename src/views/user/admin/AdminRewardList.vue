@@ -37,13 +37,25 @@
           <td>{{ reward.price }}</td>
           <td>{{ reward.amount }}</td>
           <td class="flex justify-center">
-            <expandable-image
-              class="h-10 w-10 object-cover border-2 border-neutral-300 rounded-lg"
+            <img
+              class="
+                h-10
+                w-10
+                object-cover
+                border-2 border-neutral-300
+                rounded-lg
+              "
               v-if="reward.image"
               :src="reward.image"
             />
-            <expandable-image
-              class="h-10 w-10 object-cover border-2 border-neutral-300 rounded-lg"
+            <img
+              class="
+                h-10
+                w-10
+                object-cover
+                border-2 border-neutral-300
+                rounded-lg
+              "
               v-else
               :src="require('@/assets/reward.png')"
             />
