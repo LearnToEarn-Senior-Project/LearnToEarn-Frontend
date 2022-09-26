@@ -60,10 +60,14 @@ export default {
         showAlert(
           "error",
           "",
-          "The classrooms are unavailable. Please connect the Google Account to get the classroom, Or the Google Account must contain more than one classroom.",
+          "The classrooms are unavailable. Please connect or re-connect to the Google Account to get the classroom, Or the Google Account must contain more than one classroom.",
           "Confirm",
           false
-        );
+        ).then((res) => {
+          if (res.isConfirmed) {
+            this.$router.push({ name: "accountSetting" });
+          }
+        });
       } else {
         text.hide();
       }

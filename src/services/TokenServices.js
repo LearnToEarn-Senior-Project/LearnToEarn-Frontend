@@ -4,13 +4,17 @@ import CryptoJS from "crypto-js";
 
 export default {
   async getStudentToken() {
-    let studentCurrentToken = await apiClient.get(
-      `/studentToken/${CryptoJS.AES.decrypt(
-        localStorage.getItem("user"),
-        "uwvuvvwevwewvwe onyetenyevwe"
-      ).toString(CryptoJS.enc.Utf8)}`
-    );
-    return JSON.parse(studentCurrentToken.data);
+    try {
+      let studentCurrentToken = await apiClient.get(
+        `/studentToken/${CryptoJS.AES.decrypt(
+          localStorage.getItem("user"),
+          "uwvuvvwevwewvwe onyetenyevwe"
+        ).toString(CryptoJS.enc.Utf8)}`
+      );
+      return JSON.parse(studentCurrentToken.data);
+    } catch (error) {
+      return 0
+    }
   },
   async addToken(token) {
     return apiClient.post("/addToken", { amountOfCoin: parseFloat(token) });

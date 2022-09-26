@@ -15,7 +15,13 @@
           <SubmitButton text="Search" class="h-full mr-2 w-full" />
           <CancelButton
             text="QR Scan"
-            class="h-full w-full bg-success-700 hover:bg-success-800 active:bg-success-900"
+            class="
+              h-full
+              w-full
+              bg-success-700
+              hover:bg-success-800
+              active:bg-success-900
+            "
             :click="
               () => {
                 this.$router.push({ name: 'qrCodeStatementApproval' });
@@ -26,28 +32,28 @@
       </div>
     </Form>
     <div class="overflow-x-auto">
-      <table>
+      <table class="w-full">
         <thead class="text-[24px]">
           <tr>
-            <th class="py-4 w-1/6">No</th>
-            <th class="w-1/6">Token History ID</th>
+            <th class="w-1/6 py-4">Token History ID</th>
             <th class="w-1/6">Student ID</th>
             <th class="w-1/6">Date</th>
             <th class="w-1/6">Statement</th>
           </tr>
         </thead>
         <tbody class="text-center" v-if="histories.length > 0">
-          <tr v-for="(history, index) in histories" :key="index" class="">
-            <td class="text-[28px] font-bold py-2">
-              {{ index + 1 }}
-            </td>
+          <tr v-for="history in histories" :key="history.id">
             <td class="truncate">{{ history._id }}</td>
             <td>{{ history.student_id }}</td>
             <td>{{ history.date }}</td>
             <td>
               <SubmitButton
                 text="Approve"
-                class="bg-success-700 hover:bg-success-800 active:bg-success-900"
+                class="
+                  bg-success-700
+                  hover:bg-success-800
+                  active:bg-success-900
+                "
                 :click="
                   () => {
                     approveStatement(history._id);

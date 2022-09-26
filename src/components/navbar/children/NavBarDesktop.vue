@@ -11,7 +11,16 @@
           v-for="item in NavBarItems"
           :key="item.id"
           :to="{ name: item.pageName }"
-          class="text-shade-white text-sm font-bold hidden md:block rounded-[20px] px-2 py-1 hover:bg-secondary-100 hover:text-primary-900"
+          class="
+            text-shade-white text-sm
+            font-bold
+            hidden
+            md:block
+            rounded-[20px]
+            px-2
+            py-1
+            hover:bg-secondary-100 hover:text-primary-900
+          "
           exact-active-class="bg-secondary-100 text-primary-900"
         >
           {{ item.title }}
@@ -29,7 +38,19 @@
         </div>
         <div class="ml-4 md:block flex items-center relative">
           <button
-            class="max-w-xs text-sm flex items-center bg-secondary-500 rounded-3xl px-1 py-2.5 h-9 text-shade-white focus:outline-none focus:shadow-solid"
+            class="
+              max-w-xs
+              text-sm
+              flex
+              items-center
+              bg-secondary-500
+              rounded-3xl
+              px-1
+              py-2.5
+              h-9
+              text-shade-white
+              focus:outline-none focus:shadow-solid
+            "
             id="user-menu"
             aria-label="User menu"
             aria-haspopup="true"
@@ -41,7 +62,21 @@
           </button>
           <div
             id="user-menu-dropdown"
-            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md z-40 py-1 rounded-md text-center bg-shade-white shadow-xs border-2 border-neutral-400"
+            class="
+              origin-top-right
+              absolute
+              right-0
+              mt-2
+              w-48
+              rounded-md
+              z-40
+              py-1
+              rounded-md
+              text-center
+              bg-shade-white
+              shadow-xs
+              border-2 border-neutral-400
+            "
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="user-menu"
@@ -73,7 +108,15 @@
               </div>
             </router-link>
             <button
-              class="w-full justify-center py-2 text-sm font-bold text-shade-black hover:bg-neutral-100"
+              class="
+                w-full
+                justify-center
+                py-2
+                text-sm
+                font-bold
+                text-shade-black
+                hover:bg-neutral-100
+              "
               @click="logout"
             >
               Logout
