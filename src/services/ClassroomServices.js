@@ -1,6 +1,7 @@
 import apiClient from "@/services/axios/AxiosClient.js";
 import store from "@/store";
 import CryptoJS from "crypto-js";
+import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
 
 export default {
   async getAllClassroom(page) {
@@ -24,7 +25,21 @@ export default {
         ).toString(CryptoJS.enc.Utf8)}/${course_id}`
       )
       .then((response) => {
-        store.dispatch("setClassroomWithAssignment", response.data);
+        if (response.data == "The classroom or student is not found") {
+          showAlert(
+            "error",
+            "Classroom not found",
+            "This classroom is not found, please try again later.",
+            "Confirm",
+            false
+          ).then((response) => {
+            if (response.isConfirmed) {
+              router.go(-1);
+            }
+          });
+        } else {
+          store.dispatch("setClassroomWithAssignment", response.data);
+        }
       });
   },
 

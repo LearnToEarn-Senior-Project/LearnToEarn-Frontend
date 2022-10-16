@@ -14,7 +14,7 @@
 <script>
 import TokenServices from "@/services/TokenServices";
 import SubmitButton from "@/components/button/children/SubmitButton.vue";
-import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
+
 export default {
   components: { SubmitButton },
   data() {
@@ -36,27 +36,14 @@ export default {
     if (Array.isArray(this.tokenHistory_id)) {
       this.tokenHistory_id = this.tokenHistory_id[0];
     }
-    try {
-      await TokenServices.getStudentStatementImage(
-        this.tokenHistory_id,
-        this.$route.params.reward_id
-      ).then(() => {
-        this.image =
-          "data:image/png;base64," + this.$store.getters.getTokenHistory;
-      });
-    } catch (error) {
-      showAlert(
-        "error",
-        "Data not found",
-        "Please input the valid link",
-        "confirm",
-        false
-      ).then((response) => {
-        if (response.isConfirmed) {
-          this.$router.go(-1);
-        }
-      });
-    }
+
+    await TokenServices.getStudentStatementImage(
+      this.tokenHistory_id,
+      this.$route.params.reward_id
+    ).then(() => {
+      this.image =
+        "data:image/png;base64," + this.$store.getters.getTokenHistory;
+    });
   },
 };
 </script>

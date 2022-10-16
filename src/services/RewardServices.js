@@ -1,6 +1,8 @@
 import apiClient from "@/services/axios/AxiosClient.js";
 import store from "@/store";
 import CryptoJS from "crypto-js";
+import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
+import router from "@/router";
 
 export default {
   addReward(name, detail, amount, price, image) {
@@ -28,7 +30,21 @@ export default {
   },
   async getRewardByID(id) {
     await apiClient.get(`/reward/${id}`).then((response) => {
-      store.dispatch("setReward", response.data[0]);
+      if (response.data.length == 0) {
+        showAlert(
+          "error",
+          "Reward not found",
+          "This reward is not found, please try again later.",
+          "Confirm",
+          false
+        ).then((response) => {
+          if (response.isConfirmed) {
+            router.go(-1);
+          }
+        });
+      } else {
+        store.dispatch("setReward", response.data[0]);
+      }
     });
   },
   async updateRewardByID(id, name, detail, amount, price, image) {
@@ -53,7 +69,22 @@ export default {
         reward
       )
       .then((response) => {
-        store.dispatch("setTokenHistoryId", response.data._id);
+        if (response.data == "Cannot redeem this reward" || response.data == "Reward not found" || response.data == "Student not found") {
+          showAlert(
+            "error",
+            "Cannot redeem this reward not found",
+            "Found unexpected problem, please try again later.",
+            "Confirm",
+            false
+          ).then((response) => {
+            if (response.isConfirmed) {
+              router.go(-1);
+            }
+          });
+        } else {
+          store.dispatch("setTokenHistoryId", response.data._id);
+        }
       });
+
   },
 };

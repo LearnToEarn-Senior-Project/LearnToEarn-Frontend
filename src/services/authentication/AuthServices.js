@@ -33,7 +33,7 @@ export default {
       .get(`/getUser/${userObject.id}`)
       .then(async (responseUser) => {
         if (responseUser.data == "User not found") {
-          await Swal.fire({
+          /* await Swal.fire({
             title: "Terms and conditions",
             input: "checkbox",
             showCancelButton: true,
@@ -44,19 +44,19 @@ export default {
             inputValidator: (result) => {
               return !result && "You need to agree with T&C";
             },
-          }).then(async (response) => {
-            if (response.isConfirmed) {
-              await apiClient.post("/addUser", userObject);
-              responseUser = await apiClient.get(`/getUser/${userObject.id}`);
-              var secretItem = CryptoJS.AES.encrypt(
-                responseUser.data["_id"],
-                "uwvuvvwevwewvwe onyetenyevwe"
-              ).toString();
-              localStorage.setItem("user", secretItem);
-            } else {
-              router.push({ name: "beforeLogin" });
-            }
-          });
+          }).then(async (response) => { 
+          if (response.isConfirmed) { */
+          await apiClient.post("/addUser", userObject);
+          responseUser = await apiClient.get(`/getUser/${userObject.id}`);
+          var secretItem = CryptoJS.AES.encrypt(
+            responseUser.data["_id"],
+            "uwvuvvwevwewvwe onyetenyevwe"
+          ).toString();
+          localStorage.setItem("user", secretItem);
+          /* } else {
+            router.push({ name: "beforeLogin" });
+          }  
+        }); */
         } else {
           console.log(responseUser);
           var secretItem = CryptoJS.AES.encrypt(

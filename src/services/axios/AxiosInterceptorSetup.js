@@ -90,7 +90,7 @@ apiClient.interceptors.response.use(
     } else {
       showAlert(
         "error",
-        "Cannot connect to server",
+        "Unexpected problem",
         "Found unexpected problem, please try again later.",
         "Confirm",
         false

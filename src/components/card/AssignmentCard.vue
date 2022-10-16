@@ -6,7 +6,7 @@
       <span class="truncate font-bold">{{ assignment.name }}</span>
       <span
         class="text-success-600"
-        v-if="role.includes('student') && role[0] == 'student'"
+        
         >{{ getState() }}</span
       >
     </div>
@@ -14,7 +14,7 @@
       <span class="truncate">Due {{ getDate() }}</span>
       <div
         class="flex items-center gap-[15px]"
-        v-if="role.includes('student') && role[0] == 'student'"
+        
       >
         <span>Score {{ getScore() }}/{{ assignment.max_point }}</span>
         <span>Token: <span class="text-secondary-600">-</span></span>

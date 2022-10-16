@@ -6,7 +6,7 @@
         class="flex gap-x-4"
         v-if="role.includes('teacher') && role[0] == 'teacher'"
       >
-        <BaseButton
+        <!-- <BaseButton
           text="Token Criteria Statistic"
           class="
             text-primary-900
@@ -21,7 +21,7 @@
                 params: { id: classroom._id },
               })
           "
-        />
+        /> -->
         <BaseButton
           text="Token Criteria"
           class="

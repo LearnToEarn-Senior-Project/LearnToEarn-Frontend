@@ -1,6 +1,8 @@
 import apiClient from "@/services/axios/AxiosClient.js";
 import store from "@/store";
 import CryptoJS from "crypto-js";
+import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
+import router from "@/router";
 
 export default {
   async getStudentToken() {
@@ -65,7 +67,21 @@ export default {
         }
       )
       .then(async (response) => {
-        await store.dispatch("setTokenHistory", response.data);
+        if (response.data == "Reward not found" || response.data == "Student not found" || response.data == "Token History not found") {
+          showAlert(
+            "error",
+            "Token history not found",
+            "This token history is not found, please try again later.",
+            "Confirm",
+            false
+          ).then((response) => {
+            if (response.isConfirmed) {
+              router.go(-1);
+            }
+          });
+        } else {
+          await store.dispatch("setTokenHistory", response.data);
+        }
       });
   },
 };
