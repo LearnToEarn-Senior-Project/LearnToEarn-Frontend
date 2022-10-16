@@ -23,6 +23,20 @@
           "
         /> -->
         <BaseButton
+          text="Send token to the student in classroom"
+          class="
+            text-primary-900
+            bg-secondary-500
+            hover:bg-secondary-500 hover:text-shade-white
+            active:bg-secondary-300 active:text-shade-white
+          "
+          :click="
+            () => {
+              sendTokenToStudent();
+            }
+          "
+        />
+        <BaseButton
           text="Token Criteria"
           class="
             text-primary-500
@@ -60,6 +74,8 @@ import ClassroomServices from "@/services/ClassroomServices";
 import AssignmentCard from "@/components/card/AssignmentCard.vue";
 import GoogleServices from "@/services/authentication/GoogleServices";
 import BaseButton from "@/components/button/BaseButton.vue";
+import TokenServices from "@/services/TokenServices";
+import { showAlert } from "@/hooks/sweet-alert/sweet-alert";
 export default {
   components: { AssignmentCard, BaseButton },
   data() {
@@ -93,6 +109,24 @@ export default {
       } catch (error) {
         return "-";
       }
+    },
+    sendTokenToStudent() {
+      TokenServices.sendToken(this.classroom._id).then((response) => {
+        console.log(response.data);
+        if (response.data == "Send the token to the student successfully") {
+          showAlert(
+            "success",
+            "Send token to the student successfully",
+            "",
+            "Confirm",
+            false
+          ).then((res) => {
+            if (res.isConfirmed) {
+              this.$router.go();
+            }
+          });
+        }
+      });
     },
   },
   async created() {

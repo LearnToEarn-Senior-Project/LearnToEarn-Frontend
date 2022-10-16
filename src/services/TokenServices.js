@@ -54,6 +54,9 @@ export default {
     tokenHistory_id = tokenHistory_id[0];
     return apiClient.patch(`/approve/${tokenHistory_id}`);
   },
+  async sendToken(course_id) {
+    return apiClient.patch(`/sendToken/${course_id}`)
+  },
   async getStudentStatementImage(tokenHistory_id, reward_id) {
     await apiClient
       .post(
