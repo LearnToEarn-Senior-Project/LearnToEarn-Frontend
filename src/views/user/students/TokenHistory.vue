@@ -100,7 +100,7 @@ export default {
       }
       this.histories = this.$store.getters.getTokenHistories.token_history_list;
       for (let index = 0; index < this.histories.length; index++) {
-        RewardServices.getRewardByID(this.histories[index].reward_id).then(
+        RewardServices.getRewardByIDForHistory(this.histories[index].reward_id).then(
           () => {
             this.rewards[index] = this.$store.getters.getReward.name;
           }

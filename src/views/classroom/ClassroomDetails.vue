@@ -112,7 +112,6 @@ export default {
     },
     sendTokenToStudent() {
       TokenServices.sendToken(this.classroom._id).then((response) => {
-        console.log(response.data);
         if (response.data == "Send the token to the student successfully") {
           showAlert(
             "success",
@@ -120,9 +119,17 @@ export default {
             "",
             "Confirm",
             false
-          ).then((res) => {
-            if (res.isConfirmed) {
-              this.$router.go();
+          );
+        } else {
+          showAlert(
+            "error",
+            "Unexpected problem",
+            "Found unexpected problem, please try again later.",
+            "Confirm",
+            false
+          ).then((response) => {
+            if (response.isConfirmed) {
+              router.go();
             }
           });
         }

@@ -47,6 +47,11 @@ export default {
       }
     });
   },
+  async getRewardByIDForHistory(id) {
+    await apiClient.get(`/reward/${id}`).then((response) => {
+      store.dispatch("setReward", response.data[0]);
+    });
+  },
   async updateRewardByID(id, name, detail, amount, price, image) {
     return apiClient.patch(`/updateReward/${id}`, {
       name: name,
